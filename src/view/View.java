@@ -3,6 +3,7 @@ package view;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.paint.Color;
 
 public class View {
 	
@@ -27,7 +28,7 @@ public class View {
 	
 	public void start(Stage primaryStage) {
 		ViewFrame.drawFrame(primaryStage, 16, 16);
-		
+		ViewFrame.drawWall(0, 0, 0, 0, Color.AQUA);
 		primaryStage.show();
 	}
 	

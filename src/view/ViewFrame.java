@@ -32,6 +32,8 @@ public class ViewFrame {
 		Rectangle square;
 		stage.setScene(scene);
 		
+		/* Tracer les quatre bordures (murs) du cadre */
+		
 		square = new Rectangle(0, 0, SPAN * (nbrX * (CELL + WALL) + WALL), WALL * SPAN);
 		square.setFill(WALL_COLOR);
 		pane.getChildren().add(square);
@@ -48,6 +50,8 @@ public class ViewFrame {
 		square.setFill(WALL_COLOR);
 		pane.getChildren().add(square);
 		
+		/* Placer les différents coins des cellules */
+		
 		for (int x = 0; x < nbrX-1; ++x) {
 			int offsetX = ((WALL + CELL) + (WALL + CELL) * x) * SPAN;
 			for (int y = 0; y < nbrY-1; ++y) {
@@ -56,6 +60,30 @@ public class ViewFrame {
 				square.setFill(WALL_COLOR);
 				pane.getChildren().add(square);
 			}
+		}
+		
+	}
+	
+	public static void drawWall(int xs, int ys, int xt, int yt, Paint color) {
+		
+		int x = 0, y = 0, xspan = 0, yspan = 0;
+		
+		if (ys == yt) {
+			x = ((WALL + CELL) + (WALL + CELL) * ((int)(xs + xt)/2)) * SPAN;
+			y = (WALL + ys * (WALL + CELL)) * SPAN;
+			xspan = WALL * SPAN;
+			yspan = CELL * SPAN;
+			Rectangle square  = new Rectangle(x, y, xspan, yspan);
+			square.setFill(color);
+			pane.getChildren().add(square);
+		} else {
+			x = (WALL + xs * (WALL + CELL)) * SPAN;
+			y = ((WALL + CELL) + (WALL + CELL) * ((int)(ys + yt)/2)) * SPAN;
+			xspan = CELL * SPAN;
+			yspan = WALL * SPAN;
+			Rectangle square = new Rectangle(x, y, xspan, yspan);
+			square.setFill(color);
+			pane.getChildren().add(square);
 		}
 		
 	}
