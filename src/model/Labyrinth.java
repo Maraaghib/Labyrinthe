@@ -5,6 +5,11 @@ package model;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
+import java.util.Random;
+import java.util.Vector;
+
+import com.sun.javafx.scene.traversal.Direction;
+
 
 
 /**
@@ -48,11 +53,62 @@ public class Labyrinth {
 	}
 	
 //	public void launchManhattan(Vertex source, Vertex target) {
-//		for (Vertex vertex : graph.vertexSet()) {
+//		for (Vertex vertex : graph.vertexSet()) { // vertexSet peut vouloir dire ensemble de sommets (set of vertexes)
 //			vertex.setNbr(0);
 //		}
 //		calculateManhattanDistance(source, target);
 //	}
+	
+	public void buildRandomPath(Vertex vertex) {
+		// Une liste aléatoire des 4 directions
+		Vector<Directions> v = new Vector<Directions>();
+		
+		for (int i = 0; i < 4; ++i) {
+			v.add(Directions.values()[i]);
+		}
+		
+		Directions directions[] = new Directions[4];
+		Random random = new Random(); // A déplacer dans la boucle ?
+		for (int i = 0; i < directions.length; ++i) {
+			int index = random.nextInt(v.size());
+			directions[i] = v.get(index);
+			v.remove(index);
+		}
+		
+		// Pour chacune de ces directions, on avance en profondeur d'abord
+		for (int i = 0; i < 4; ++i) {
+			Directions dir = directions[i];
+			if (vertex.inBorders(dir) && graph.doesntExist(vertex, dir)) {
+				int x = vertex.getX();
+				int y = vertex.getY();
+				int xt = 0, yt = 0;
+				
+				switch (dir) {
+					case NORTH:
+						xt = x;
+						yt = y-1;
+						break;
+					case SOUTH:
+						xt = x;
+						yt = y+1;
+						break;
+					case EAST:
+						xt = x+1;
+						yt = y;
+						break;
+					case WEST:
+						xt = x-1;
+						yt = y;
+						break;				
+				}
+				
+				Vertex next = new Vertex(xt, yt, vertex.getNbr()+1);
+				graph.addVertex(next);
+				graph.addEdge(vertex, next);
+				buildRandomPath(next);
+			}
+		}
+	}
 	
 	/* Quelques prédicats pour détecter une porte ouverte, fermée, un couloir ou un mur... */
 	

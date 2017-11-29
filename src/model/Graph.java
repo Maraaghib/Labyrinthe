@@ -22,5 +22,20 @@ public class Graph {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void addVertex(Vertex next) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addEdge(Vertex vertex, Vertex next) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean doesntExist(Vertex vertex, Directions dir) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
