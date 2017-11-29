@@ -27,6 +27,7 @@ public class View {
 	}
 	
 	public void start(Stage primaryStage) {
+		primaryStage.setTitle("Labyrinth");
 		ViewFrame.drawFrame(primaryStage, 16, 16);
 		ViewFrame.drawWall(0, 0, 0, 0, Color.AQUA);
 		primaryStage.show();
