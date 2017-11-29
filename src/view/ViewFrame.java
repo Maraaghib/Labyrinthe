@@ -1,7 +1,7 @@
 package view;
 
 import javafx.scene.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -9,11 +9,11 @@ import javafx.stage.*;
 
 public class ViewFrame {
 	
-	static final int SPAN = 4; //Pixels for a unit
+	static final int SPAN = 4; // Pixels for a unit
 	static final int WALL = 2; // Thickness of the walls (in units)
 	static final int CELL = 9; // Size of the cells (in units)
 	public static final Paint WALL_COLOR = Color.BURLYWOOD;
-	private static GridPane pane = new GridPane();
+	private static BorderPane pane = new BorderPane();
 	private static Scene scene;
 	private static final Paint SCENE_COLOR = Color.WHITE;
 
@@ -24,8 +24,8 @@ public class ViewFrame {
 	public static void drawFrame(Stage stage, int nbrX, int nbrY) {
 		
 		scene = new Scene(pane,
-				((WALL + CELL) * nbrX + WALL) * SPAN,
-				((WALL + CELL) * nbrY + WALL) * SPAN);
+				((WALL + CELL) * nbrX + WALL) * SPAN, // The nbrX WALL+CELL and the last WALL
+				((WALL + CELL) * nbrY + WALL) * SPAN); // --
 				
 		scene.setFill(SCENE_COLOR);
 		
