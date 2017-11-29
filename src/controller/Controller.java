@@ -1,5 +1,8 @@
 package controller;
 
+import view.View;
+import model.Model;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -7,13 +10,16 @@ import javafx.stage.Stage;
 public class Controller implements EventHandler<ActionEvent> {
 
 	private static Controller instance = null;
+	private View view;
+	private Model model;
 	
 	private Controller() {
 		// TODO Auto-generated constructor stub
-		
+		view = View.getInstance();
+		model = model.getInstance();
 	}
 
-	public static void makeInstance() {
+	public static Controller getInstance() {
 		// TODO Auto-generated method stub
 		if(instance == null) {
 			instance = new Controller();
@@ -22,6 +28,8 @@ public class Controller implements EventHandler<ActionEvent> {
 		else {
 			System.out.println("Instance de la classe Controller existante !");
 		}
+		
+		return instance;
 	}
 	
 	
@@ -31,8 +39,10 @@ public class Controller implements EventHandler<ActionEvent> {
 		
 	}
 
-	public static void start(Stage stage) {
+	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
+		view.start(primaryStage);
+		view.addOnAction(this);
 		
 	}
 
