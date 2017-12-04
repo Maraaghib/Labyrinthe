@@ -9,7 +9,10 @@ public class Vertex implements Comparable<Vertex> {
 	private int y;
 	
 	public Vertex() {
-		
+		super();
+		this.nbr = 0;
+		this.x = 0;
+		this.y = 0;
 	}
 	
 	public Vertex(int x, int y) {
