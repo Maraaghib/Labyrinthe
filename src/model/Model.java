@@ -3,10 +3,19 @@ package model;
 public class Model {
 	
 	private static Model instance = null;
+	private static Labyrinth labyrinth;
+	private Graph graph;
+	private Vertex vertex;
 	
-
+	
 	private Model() {
-		
+		labyrinth = new Labyrinth();
+		vertex = new Vertex();
+		labyrinth.buildRandomPath(vertex);
+	}
+	
+	public static Graph getGraph() {
+		return labyrinth.getGraph();
 	}
 	
 	public static Model getInstance() {
