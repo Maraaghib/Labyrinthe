@@ -18,6 +18,11 @@ import com.sun.javafx.scene.traversal.Direction;
  */
 public class Labyrinth {
 	
+	protected static final int TOP = 0;
+	protected static final int DOWN = 15;
+	protected static final int LEFT = 0;
+	protected static final int RIGHT = 15;
+	
 	public enum Directions{
 		EAST,
 		WEST,
