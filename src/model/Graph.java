@@ -1,6 +1,9 @@
 package model;
 
 import model.Labyrinth.Directions;
+
+import java.util.Set;
+
 import org.jgrapht.*;
 import org.jgrapht.graph.SimpleGraph;
 
@@ -43,24 +46,36 @@ public class Graph {
 		return null;
 	}
 
-	public Vertex vertexSet() {
+	public Set<Vertex> vertexSet() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.graph.vertexSet();
 	}
 
 	public void addVertex(Vertex next) {
 		// TODO Auto-generated method stub
+		try {
+			this.graph.addVertex(next);
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+			Model.usage("Graph.java:addVertex(...): The specified vertex is null !");
+		}
 		
 	}
 
 	public void addEdge(Vertex vertex, Vertex next) {
 		// TODO Auto-generated method stub
-		
+		try {
+			
+		} catch (IllegalArgumentException e) {
+			// TODO: handle exception
+			Model.usage("Graph.java:addVertex(...): Source or target vertices are not found in the graph");
+		}
 	}
 
 	public boolean doesntExist(Vertex vertex, Directions dir) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean notExistVertex = (this.getVertexByDir(vertex, dir) == null) ? true : false;
+		return notExistVertex;
 	}
 	
 }
