@@ -22,4 +22,8 @@ public class Model {
 		return instance;
 	}
 
+	public static void usage(String message) {
+		System.out.println(message);
+		System.exit(0);
+	}
 }
