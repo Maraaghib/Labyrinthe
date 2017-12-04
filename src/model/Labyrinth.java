@@ -23,6 +23,9 @@ public class Labyrinth {
 	protected static final int LEFT = 0;
 	protected static final int RIGHT = 15;
 	
+	public static final int WIDTH = 16;
+	public static final int HEIGHT = 16;
+	
 	public enum Directions{
 		EAST,
 		WEST,
@@ -34,7 +37,11 @@ public class Labyrinth {
 	private Graph graph;
 	
 	public Labyrinth() {
-		
+		graph = new Graph();
+	}
+	
+	public Graph getGraph() {
+		return this.graph;
 	}
 	
 	private void calculateManhattanDistance(Vertex source, Vertex target) {
@@ -57,12 +64,12 @@ public class Labyrinth {
 		}
 	}
 	
-//	public void launchManhattan(Vertex source, Vertex target) {
-//		for (Vertex vertex : graph.vertexSet()) { // vertexSet peut vouloir dire ensemble de sommets (set of vertexes)
-//			vertex.setNbr(0);
-//		}
-//		calculateManhattanDistance(source, target);
-//	}
+	public void launchManhattan(Vertex source, Vertex target) {
+		for (Vertex vertex : graph.vertexSet()) { // vertexSet peut vouloir dire ensemble de sommets (set of vertexes)
+			vertex.setNbr(0);
+		}
+		calculateManhattanDistance(source, target);
+	}
 	
 	public void buildRandomPath(Vertex vertex) {
 		// Une liste aléatoire des 4 directions
