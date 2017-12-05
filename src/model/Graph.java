@@ -10,13 +10,21 @@ import org.jgrapht.graph.SimpleGraph;
 public class Graph {
 
 	private SimpleGraph<Vertex, Edge> simpleGraph;
-
+	
 	public Graph() {
 		super();
+		Vertex vertex = new Vertex();
 		this.simpleGraph = new SimpleGraph<Vertex, Edge>(Edge.class);
+		this.simpleGraph.addVertex(vertex);
 		System.out.println("Intance de la classe Graph cree !");
 	}
 	
+	public Graph(Vertex vertex) {
+		super();
+		this.simpleGraph = new SimpleGraph<Vertex, Edge>(Edge.class);
+		this.simpleGraph.addVertex(vertex);
+	}
+
 	public SimpleGraph<Vertex, Edge> getGraph() {
 		return this.simpleGraph;
 	}
@@ -58,6 +66,7 @@ public class Graph {
 
 	public void addVertex(Vertex next) {
 		// TODO Auto-generated method stub
+		System.out.println("addVertex appelee "+(++Model.cpt)+" fois");
 		try {
 			this.simpleGraph.addVertex(next);
 		} catch (NullPointerException e) {
@@ -82,8 +91,12 @@ public class Graph {
 
 	public boolean doesntExist(Vertex vertex, Directions dir) {
 		// TODO Auto-generated method stub
-		boolean notExistVertex = (this.getVertexByDir(vertex, dir) == null) ? true : false;
-		return notExistVertex;
+//		boolean notExistVertex = (this.getVertexByDir(vertex, dir) == null) ? true : false;
+		return !this.containsVertex(this.getVertexByDir(vertex, dir));
+	}
+	
+	public boolean containsVertex(Vertex vertex) {
+		return this.simpleGraph.containsVertex(vertex);
 	}
 	
 	public boolean containsEdge(Vertex source, Vertex target) {

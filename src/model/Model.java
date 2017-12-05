@@ -3,15 +3,16 @@ package model;
 public class Model {
 	
 	private static Model instance = null;
-	private static Labyrinth labyrinth;
-	private Graph graph;
 	private Vertex vertex;
+	private Graph graph;
+	private static Labyrinth labyrinth;
 	
 	public static int cpt = 0;
 	
 	private Model() {
-		labyrinth = new Labyrinth();
-		vertex = new Vertex(1, 1);
+		this.vertex = new Vertex();
+		this.graph = new Graph(vertex); 
+		this.labyrinth = new Labyrinth(graph);
 		labyrinth.buildRandomPath(vertex);
 	}
 	

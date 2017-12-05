@@ -11,45 +11,51 @@ public class Vertex implements Comparable<Vertex> {
 	public Vertex() {
 		super();
 		this.nbr = 0;
-		this.x = 0;
-		this.y = 0;
+		this.setX(0);
+		this.setY(0);
 	}
 	
 	public Vertex(int x, int y) {
 		super();
-		this.x = x;
-		this.y = y;
+		this.setX(x);
+		this.setY(y);		
 	}
 
-	public Vertex(int nbr, int x, int y) {
+	public Vertex(int x, int y, int nbr) {
 		super();
-		this.nbr = nbr;
-		this.x = x;
-		this.y = y;
+		this.setX(x);
+		this.setY(y);
+		this.setNbr(nbr);
 	}
 
 	public int getNbr() {
-		return nbr;
+		return this.nbr;
 	}
 
 	public void setNbr(int nbr) {
-		this.nbr = nbr;
+		if(nbr <= (Labyrinth.WIDTH * Labyrinth.HEIGHT)) {
+			this.nbr = nbr;
+		}
 	}
 
 	public int getX() {
-		return x;
+		return this.x;
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		if (x <= Labyrinth.WIDTH) {
+			this.x = x;
+		}		
 	}
 
 	public int getY() {
-		return y;
+		return this.y;
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		if (y <= Labyrinth.HEIGHT) {
+			this.y = y;
+		}
 	}
 
 	public int compareTo(Vertex source) {
@@ -59,7 +65,7 @@ public class Vertex implements Comparable<Vertex> {
 
 	@Override
 	public String toString() {
-		return "Vertex [nbr=" + nbr + ", x=" + x + ", y=" + y + "]";
+		return "Vertex [nbr=" + this.getNbr()+ ", x=" + this.getX() + ", y=" + this.getY() + "]";
 	}
 
 	public boolean inBorders(Directions dir) {
@@ -68,16 +74,16 @@ public class Vertex implements Comparable<Vertex> {
 		boolean inBorder = false;
 		switch (dir) {
 		case NORTH:
-			inBorder = (vertex.getY()-1 < Labyrinth.TOP) ? false : true;
+			inBorder = (vertex.getY()-1 < Labyrinth.TOP_BORDER) ? false : true;
 			break;
 		case SOUTH:
-			inBorder = (vertex.getY()+1 > Labyrinth.DOWN) ? false : true;
+			inBorder = (vertex.getY()+1 > Labyrinth.DOWN_BORDER) ? false : true;
 			break;
 		case EAST:
-			inBorder = (vertex.getX()+1 > Labyrinth.RIGHT) ? false : true;
+			inBorder = (vertex.getX()+1 > Labyrinth.RIGHT_BORDER) ? false : true;
 			break;
 		case WEST:
-			inBorder = (vertex.getX()-1 < Labyrinth.LEFT) ? false : true;
+			inBorder = (vertex.getX()-1 < Labyrinth.LEFT_BORDER) ? false : true;
 			break;
 	}
 		return inBorder;
