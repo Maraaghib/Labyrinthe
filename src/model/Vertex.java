@@ -5,13 +5,27 @@ import model.Labyrinth.Directions;
 public class Vertex implements Comparable<Vertex> {
 	
 	private int nbr;
+	private int x;
+	private int y;
 	
 	public Vertex() {
-		
+		super();
+		this.nbr = 0;
+		this.x = 0;
+		this.y = 0;
 	}
 	
-	public Vertex(int xt, int yt, int i) {
-		// TODO Auto-generated constructor stub
+	public Vertex(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+
+	public Vertex(int nbr, int x, int y) {
+		super();
+		this.nbr = nbr;
+		this.x = x;
+		this.y = y;
 	}
 
 	public int getNbr() {
@@ -22,24 +36,51 @@ public class Vertex implements Comparable<Vertex> {
 		this.nbr = nbr;
 	}
 
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
 	public int compareTo(Vertex source) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@Override
+	public String toString() {
+		return "Vertex [nbr=" + nbr + ", x=" + x + ", y=" + y + "]";
+	}
+
 	public boolean inBorders(Directions dir) {
 		// TODO Auto-generated method stub
-		return false;
+		Vertex vertex = new Vertex(this.getX(), this.getY());
+		boolean inBorder = false;
+		switch (dir) {
+		case NORTH:
+			inBorder = (vertex.getY()-1 < Labyrinth.TOP) ? false : true;
+			break;
+		case SOUTH:
+			inBorder = (vertex.getY()+1 > Labyrinth.DOWN) ? false : true;
+			break;
+		case EAST:
+			inBorder = (vertex.getX()+1 > Labyrinth.RIGHT) ? false : true;
+			break;
+		case WEST:
+			inBorder = (vertex.getX()-1 < Labyrinth.LEFT) ? false : true;
+			break;
 	}
-
-	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return inBorder;
 	}
 
 	

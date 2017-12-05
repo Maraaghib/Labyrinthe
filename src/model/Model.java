@@ -3,10 +3,20 @@ package model;
 public class Model {
 	
 	private static Model instance = null;
+	private static Labyrinth labyrinth;
+	private Graph graph;
+	private Vertex vertex;
 	
-
+	public static int cpt = 0;
+	
 	private Model() {
-		
+		labyrinth = new Labyrinth();
+		vertex = new Vertex(1, 1);
+		labyrinth.buildRandomPath(vertex);
+	}
+	
+	public static Graph getGraph() {
+		return labyrinth.getGraph();
 	}
 	
 	public static Model getInstance() {
@@ -22,4 +32,8 @@ public class Model {
 		return instance;
 	}
 
+	public static void usage(String message) {
+		System.out.println(message);
+		System.exit(0);
+	}
 }

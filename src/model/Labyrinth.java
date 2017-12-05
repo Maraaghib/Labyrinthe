@@ -18,6 +18,14 @@ import com.sun.javafx.scene.traversal.Direction;
  */
 public class Labyrinth {
 	
+	protected static final int TOP = 0;
+	protected static final int DOWN = 15;
+	protected static final int LEFT = 0;
+	protected static final int RIGHT = 15;
+	
+	public static final int WIDTH = 16;
+	public static final int HEIGHT = 16;
+	
 	public enum Directions{
 		EAST,
 		WEST,
@@ -29,7 +37,12 @@ public class Labyrinth {
 	private Graph graph;
 	
 	public Labyrinth() {
-		
+		graph = new Graph();
+		System.out.println("Intance de la classe Labyrinth cree !");
+	}
+	
+	public Graph getGraph() {
+		return this.graph;
 	}
 	
 	private void calculateManhattanDistance(Vertex source, Vertex target) {
@@ -52,14 +65,15 @@ public class Labyrinth {
 		}
 	}
 	
-//	public void launchManhattan(Vertex source, Vertex target) {
-//		for (Vertex vertex : graph.vertexSet()) { // vertexSet peut vouloir dire ensemble de sommets (set of vertexes)
-//			vertex.setNbr(0);
-//		}
-//		calculateManhattanDistance(source, target);
-//	}
+	public void launchManhattan(Vertex source, Vertex target) {
+		for (Vertex vertex : graph.vertexSet()) { // vertexSet peut vouloir dire ensemble de sommets (set of vertexes)
+			vertex.setNbr(0);
+		}
+		calculateManhattanDistance(source, target);
+	}
 	
 	public void buildRandomPath(Vertex vertex) {
+		System.out.println("buildRandomPath appelée "+(++Model.cpt)+" fois !");
 		// Une liste alÃ©atoire des 4 directions
 		Vector<Directions> v = new Vector<Directions>();
 		
@@ -73,6 +87,11 @@ public class Labyrinth {
 			int index = random.nextInt(v.size());
 			directions[i] = v.get(index);
 			v.remove(index);
+		}
+
+		System.out.println("buildRandomPath: vertex = "+vertex);
+		for (int i = 0; i < directions.length; i++) {
+			System.out.println(directions[i]);
 		}
 		
 		// Pour chacune de ces directions, on avance en profondeur d'abord
@@ -103,6 +122,7 @@ public class Labyrinth {
 				}
 				
 				Vertex next = new Vertex(xt, yt, vertex.getNbr()+1);
+				graph.addVertex(vertex);
 				graph.addVertex(next);
 				graph.addEdge(vertex, next);
 				buildRandomPath(next);

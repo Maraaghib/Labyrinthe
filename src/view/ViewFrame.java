@@ -15,7 +15,7 @@ public class ViewFrame {
 	public static final Paint WALL_COLOR = Color.BURLYWOOD;
 	private static BorderPane pane = new BorderPane();
 	private static Scene scene;
-	private static final Paint SCENE_COLOR = Color.WHITE;
+	public static final Paint SCENE_COLOR = Color.WHITE;
 
 	public ViewFrame() {
 		
