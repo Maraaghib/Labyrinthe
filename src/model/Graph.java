@@ -14,6 +14,11 @@ public class Graph {
 	public Graph() {
 		super();
 		this.simpleGraph = new SimpleGraph<Vertex, Edge>(Edge.class);
+		System.out.println("Intance de la classe Graph cree !");
+	}
+	
+	public SimpleGraph<Vertex, Edge> getGraph() {
+		return this.simpleGraph;
 	}
 
 	public Edge getEdge(Vertex vertex, Directions dir) {
@@ -65,10 +70,13 @@ public class Graph {
 	public void addEdge(Vertex vertex, Vertex next) {
 		// TODO Auto-generated method stub
 		try {
-
+			this.simpleGraph.addEdge(vertex, next);
 		} catch (IllegalArgumentException e) {
 			// TODO: handle exception
-			Model.usage("Graph.java:addVertex(...): Source or target vertices are not found in the graph");
+			Model.usage("Graph.java:addEdge(...): Source or target vertices are not found in the graph");
+		} catch (NullPointerException npe) {
+			// TODO: handle exception
+			Model.usage("One of the vertices is null");
 		}
 	}
 
@@ -77,5 +85,17 @@ public class Graph {
 		boolean notExistVertex = (this.getVertexByDir(vertex, dir) == null) ? true : false;
 		return notExistVertex;
 	}
-
+	
+	public boolean containsEdge(Vertex source, Vertex target) {
+		return this.simpleGraph.containsEdge(source, target);
+	}
+	
+	public String toString() {
+		StringBuffer str = new StringBuffer("Graph: \n");
+		for (Vertex vertex : this.vertexSet()) {
+			str.append(vertex.toString());
+			str.append("\n");
+		}
+		return str.toString();
+	}
 }

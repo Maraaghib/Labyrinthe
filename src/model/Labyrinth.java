@@ -38,6 +38,7 @@ public class Labyrinth {
 	
 	public Labyrinth() {
 		graph = new Graph();
+		System.out.println("Intance de la classe Labyrinth cree !");
 	}
 	
 	public Graph getGraph() {
@@ -72,6 +73,7 @@ public class Labyrinth {
 	}
 	
 	public void buildRandomPath(Vertex vertex) {
+		System.out.println("buildRandomPath appel�e "+(++Model.cpt)+" fois !");
 		// Une liste aléatoire des 4 directions
 		Vector<Directions> v = new Vector<Directions>();
 		
@@ -85,6 +87,11 @@ public class Labyrinth {
 			int index = random.nextInt(v.size());
 			directions[i] = v.get(index);
 			v.remove(index);
+		}
+
+		System.out.println("buildRandomPath: vertex = "+vertex);
+		for (int i = 0; i < directions.length; i++) {
+			System.out.println(directions[i]);
 		}
 		
 		// Pour chacune de ces directions, on avance en profondeur d'abord
@@ -115,6 +122,7 @@ public class Labyrinth {
 				}
 				
 				Vertex next = new Vertex(xt, yt, vertex.getNbr()+1);
+				graph.addVertex(vertex);
 				graph.addVertex(next);
 				graph.addEdge(vertex, next);
 				buildRandomPath(next);

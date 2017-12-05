@@ -57,6 +57,11 @@ public class Vertex implements Comparable<Vertex> {
 		return 0;
 	}
 
+	@Override
+	public String toString() {
+		return "Vertex [nbr=" + nbr + ", x=" + x + ", y=" + y + "]";
+	}
+
 	public boolean inBorders(Directions dir) {
 		// TODO Auto-generated method stub
 		Vertex vertex = new Vertex(this.getX(), this.getY());

@@ -7,10 +7,11 @@ public class Model {
 	private Graph graph;
 	private Vertex vertex;
 	
+	public static int cpt = 0;
 	
 	private Model() {
 		labyrinth = new Labyrinth();
-		vertex = new Vertex();
+		vertex = new Vertex(1, 1);
 		labyrinth.buildRandomPath(vertex);
 	}
 	
