@@ -16,7 +16,7 @@ public class Controller implements EventHandler<ActionEvent> {
 	private Controller() {
 		// TODO Auto-generated constructor stub
 		view = View.getInstance();
-		model = model.getInstance();
+		model = Model.getInstance();
 	}
 
 	public static Controller getInstance() {
@@ -41,7 +41,7 @@ public class Controller implements EventHandler<ActionEvent> {
 
 	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
-		view.start(primaryStage);
+		view.start(primaryStage, model);
 		view.addOnAction(this);
 		
 	}
