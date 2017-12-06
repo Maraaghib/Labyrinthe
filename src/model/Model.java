@@ -14,6 +14,7 @@ public class Model {
 		this.graph = new Graph(vertex); 
 		this.labyrinth = new Labyrinth(graph);
 		labyrinth.buildRandomPath(vertex);
+//		System.out.println("==========================================================================================="+graph+"===========================================================================================");;
 	}
 	
 	public static Graph getGraph() {

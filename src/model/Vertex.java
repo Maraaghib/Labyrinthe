@@ -58,9 +58,27 @@ public class Vertex implements Comparable<Vertex> {
 		}
 	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		Vertex vertex = new Vertex(this.getX(), this.getY(), this.getNbr());
+		return vertex;
+	}
+
 	public int compareTo(Vertex source) {
 		// TODO Auto-generated method stub
-		return 0;
+		if(this.x != source.x) {
+			return source.x - this.x;
+		}
+		else {
+			return source.x - this.y;
+		}
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return this.getX() == ((Vertex)obj).getX() && this.getY() == ((Vertex)obj).getY();
 	}
 
 	@Override
@@ -74,16 +92,16 @@ public class Vertex implements Comparable<Vertex> {
 		boolean inBorder = false;
 		switch (dir) {
 		case NORTH:
-			inBorder = (vertex.getY()-1 < Labyrinth.TOP_BORDER) ? false : true;
+			inBorder = (vertex.getY()-1 >= Labyrinth.TOP_BORDER) ? true : false;
 			break;
 		case SOUTH:
-			inBorder = (vertex.getY()+1 > Labyrinth.DOWN_BORDER) ? false : true;
+			inBorder = (vertex.getY()+1 <= Labyrinth.DOWN_BORDER) ? true : false;
 			break;
 		case EAST:
-			inBorder = (vertex.getX()+1 > Labyrinth.RIGHT_BORDER) ? false : true;
+			inBorder = (vertex.getX()+1 <= Labyrinth.RIGHT_BORDER) ? true : false;
 			break;
 		case WEST:
-			inBorder = (vertex.getX()-1 < Labyrinth.LEFT_BORDER) ? false : true;
+			inBorder = (vertex.getX()-1 >= Labyrinth.LEFT_BORDER) ? true : false;
 			break;
 	}
 		return inBorder;

@@ -9,7 +9,10 @@ import org.jgrapht.graph.DefaultEdge;
  * @author hamza
  *
  */
-public class Edge extends DefaultEdge implements Comparable<Edge> {
+public class Edge implements Comparable<Edge> {
+	
+	private Vertex source;
+	private Vertex target;
 
 	public enum Type{
 		OPENED_DOOR,
@@ -20,22 +23,56 @@ public class Edge extends DefaultEdge implements Comparable<Edge> {
 	private Type type;
 	
 	public Edge(Type type) {
-		super();
+//		super();
 		this.type = type;
 	}
 	
+	public Edge(Vertex source, Vertex target) {
+//		super();
+		this.source = source;
+		this.target = target;
+	}
+
+	public Edge(Vertex source, Vertex target, Type type) {
+		this.source = source;
+		this.target = target;
+		this.type = type;
+	}
+
 	// default
 	public Edge() {
 		super();
 		this.type = Type.CORRIDOR;
 	}
 	
+	public void setSource(Vertex source) {
+		this.source = source;
+	}
+
+	public void setTarget(Vertex target) {
+		this.target = target;
+	}
+
 	public Vertex getSource() {
-		return (Vertex) super.getTarget();
+		Vertex vertex = null;
+		try {
+			 vertex = (Vertex) this.source.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vertex;
 	}
 	
 	public Vertex getTarget() {
-		return (Vertex) super.getTarget();
+		Vertex vertex = null;
+		try {
+			vertex = (Vertex) this.target.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vertex;
 	}
 
 	public Type getType() {
@@ -44,6 +81,25 @@ public class Edge extends DefaultEdge implements Comparable<Edge> {
 
 	public void setType(Type type) {
 		this.type = type;
+	}
+	
+
+//	@Override
+//	public boolean equals(Object obj) {
+//		// TODO Auto-generated method stub
+//		return this.getSource().equals(((Edge)obj).getSource()) && this.getTarget().equals(((Edge)obj).getTarget());
+//	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return new Edge((Vertex)this.getSource().clone(), (Vertex)this.getTarget().clone(), this.getType());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return this.getSource().equals(((Edge)obj).getSource()) && this.getTarget().equals(((Edge)obj).getTarget());
 	}
 
 	/* (non-Javadoc)

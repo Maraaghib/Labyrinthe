@@ -50,7 +50,7 @@ public class Labyrinth {
 		return this.graph;
 	}
 
-	private void calculateManhattanDistance(Vertex source, Vertex target) {
+	private void calculateManhattanDistance(Vertex source, Vertex target) throws CloneNotSupportedException {
 		Queue<Vertex> fifo = new ArrayDeque<Vertex>();
 		target.setNbr(1);
 		fifo.add(target);
@@ -70,7 +70,7 @@ public class Labyrinth {
 		}
 	}
 
-	public void launchManhattan(Vertex source, Vertex target) {
+	public void launchManhattan(Vertex source, Vertex target) throws CloneNotSupportedException {
 		for (Vertex vertex : graph.vertexSet()) { // vertexSet peut vouloir dire ensemble de sommets (set of vertexes)
 			vertex.setNbr(0);
 		}
@@ -94,7 +94,7 @@ public class Labyrinth {
 			v.remove(index);
 		}
 
-		System.out.println("buildRandomPath: vertex = "+vertex);
+		
 		for (int i = 0; i < directions.length; i++) {
 //			System.out.println(directions[i]);
 		}
@@ -129,39 +129,48 @@ public class Labyrinth {
 						break;
 				}
 				Vertex next = new Vertex(xt, yt, vertex.getNbr()+1);
-				System.out.println("next.toString(): "+ next.toString());
+//				System.out.println("vertex.compareTo(next): "+ vertex.compareTo(next));
 //				graph.addVertex(vertex);
-				this.graph.addVertex(next);
-				this.graph.addEdge(vertex, next);
-				System.out.println("Je suis là !!");
-				buildRandomPath(next);
+//				if (graph.containsVertex(vertex)) {
+					this.graph.addVertex(next);
+					this.graph.addEdge(vertex, next);
+					System.out.println("vertex.toString() : "+vertex);
+					System.out.println("next.toString()   : "+ next.toString());
+					System.out.println("graph.containsEdge(vertex, next)______________________________________________: "+ graph.containsEdge(vertex, next));
+//					System.out.println("Je suis là !!");
+					buildRandomPath(next);
+//				}
+//				else {
+//					System.out.println("graph.containsVertex(vertex)______________________________________________: "+ graph.containsVertex(vertex));
+//					System.exit(0);
+//				}
 			}
 		}
 	}
 
 	/* Quelques prédicats pour détecter une porte ouverte, fermée, un couloir ou un mur... */
 
-	public boolean isWall(Vertex vertex, Directions dir) {
+	public boolean isWall(Vertex vertex, Directions dir) throws CloneNotSupportedException {
 		Edge edge = graph.getEdge(vertex, dir);
 		return (edge == null);
 	}
 
-	public boolean isClosed(Vertex vertex, Directions dir) {
+	public boolean isClosed(Vertex vertex, Directions dir) throws CloneNotSupportedException {
 		Edge edge = graph.getEdge(vertex, dir);
 		return (edge == null || (edge.getType() == Edge.Type.CLOSED_DOOR));
 	}
 
-	public boolean isOpened(Vertex vertex, Directions dir) {
+	public boolean isOpened(Vertex vertex, Directions dir) throws CloneNotSupportedException {
 		Edge edge = graph.getEdge(vertex, dir);
 		return (edge != null && (edge.getType() != Edge.Type.CLOSED_DOOR));
 	}
 
-	public boolean isClosedDoor(Vertex vertex, Directions dir) {
+	public boolean isClosedDoor(Vertex vertex, Directions dir) throws CloneNotSupportedException {
 		Edge edge = graph.getEdge(vertex, dir);
 		return (edge != null && (edge.getType() == Edge.Type.CLOSED_DOOR));
 	}
 
-	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
+	public boolean isOpenedDoor(Vertex vertex, Directions dir) throws CloneNotSupportedException {
 		Edge edge = graph.getEdge(vertex, dir);
 		return (edge != null && (edge.getType() == Edge.Type.OPENED_DOOR));
 	}

@@ -2,6 +2,7 @@ package model;
 
 import model.Labyrinth.Directions;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.jgrapht.*;
@@ -10,28 +11,45 @@ import org.jgrapht.graph.SimpleGraph;
 public class Graph {
 
 	private SimpleGraph<Vertex, Edge> simpleGraph;
+	private ArrayList<Vertex> vertices;
+	private ArrayList<Edge> edges;
 	
 	public Graph() {
-		super();
-		Vertex vertex = new Vertex();
-		this.simpleGraph = new SimpleGraph<Vertex, Edge>(Edge.class);
-		this.simpleGraph.addVertex(vertex);
+//		super();
+//		Vertex vertex = new Vertex();
+//		this.simpleGraph = new SimpleGraph<Vertex, Edge>(Edge.class);
+//		this.simpleGraph.addVertex(vertex);
+		
+		vertices = new ArrayList<Vertex>();
+		edges = new ArrayList<Edge>();
+		this.vertices.add(new Vertex());
 		System.out.println("Intance de la classe Graph cree !");
 	}
 	
 	public Graph(Vertex vertex) {
-		super();
-		this.simpleGraph = new SimpleGraph<Vertex, Edge>(Edge.class);
-		this.simpleGraph.addVertex(vertex);
+//		super();
+//		this.simpleGraph = new SimpleGraph<Vertex, Edge>(Edge.class);
+//		this.simpleGraph.addVertex(vertex);
+		
+		vertices = new ArrayList<Vertex>();
+		edges = new ArrayList<Edge>();
+		this.addVertex(vertex);
 	}
 
-	public SimpleGraph<Vertex, Edge> getGraph() {
-		return this.simpleGraph;
-	}
+//	public SimpleGraph<Vertex, Edge> getGraph() {
+//		return this.simpleGraph;
+//	}
 
-	public Edge getEdge(Vertex vertex, Directions dir) {
+	public Edge getEdge(Vertex vertex, Directions dir) throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
-		return this.simpleGraph.getEdge(vertex, this.getVertexByDir(vertex, dir));
+//		return this.getEdge(vertex, this.getVertexByDir(vertex, dir));
+		
+		for (Edge edge : this.edges) {
+			if(edge.equals(new Edge(vertex, this.getVertexByDir(vertex, dir)))) {
+				return (Edge) edge.clone();
+			}
+		}
+		return null;
 	}
 
 	public Vertex getVertexByDir(Vertex actual, Directions dir) {
@@ -59,33 +77,52 @@ public class Graph {
 		return null;
 	}
 
-	public Set<Vertex> vertexSet() {
+	/*public Set<Vertex> vertexSet() {
 		// TODO Auto-generated method stub
 		return this.simpleGraph.vertexSet();
+	}*/
+	
+	public ArrayList<Vertex> vertexSet() {
+		// TODO Auto-generated method stub
+		return this.vertices;
 	}
 
 	public void addVertex(Vertex next) {
 		// TODO Auto-generated method stub
-		System.out.println("addVertex appelee "+(++Model.cpt)+" fois");
-		try {
-			this.simpleGraph.addVertex(next);
+
+		/*try {
+			if (!this.containsVertex(next)) {
+				this.simpleGraph.addVertex(next);
+			}
 		} catch (NullPointerException e) {
 			// TODO: handle exception
 			Model.usage("Graph.java:addVertex(...): The specified vertex is null !");
 		}
-
+		System.out.println("addVertex appelee avec succès !");*/
+		
+		if(!this.containsVertex(next)) {
+			this.vertices.add(next); // Récupérer le résultat booléen et le retourner
+		}
 	}
 
 	public void addEdge(Vertex vertex, Vertex next) {
 		// TODO Auto-generated method stub
-		try {
-			this.simpleGraph.addEdge(vertex, next);
+		/*try {
+			if(!this.containsEdge(vertex, next)) {
+				this.simpleGraph.addEdge(vertex, next);
+			}
 		} catch (IllegalArgumentException e) {
 			// TODO: handle exception
 			Model.usage("Graph.java:addEdge(...): Source or target vertices are not found in the graph");
 		} catch (NullPointerException npe) {
 			// TODO: handle exception
 			Model.usage("One of the vertices is null");
+		}
+		System.out.println("addEdge appelee avec succès !");*/
+		
+		Edge edge = new Edge(vertex, next);
+		if(!this.containsEdge(edge)){
+			this.edges.add(edge);
 		}
 	}
 
@@ -96,11 +133,35 @@ public class Graph {
 	}
 	
 	public boolean containsVertex(Vertex vertex) {
-		return this.simpleGraph.containsVertex(vertex);
+//		return this.simpleGraph.containsVertex(vertex);
+		
+		return this.vertices.contains(vertex);
 	}
 	
 	public boolean containsEdge(Vertex source, Vertex target) {
-		return this.simpleGraph.containsEdge(source, target);
+//		return this.simpleGraph.containsEdge(source, target);
+		
+		if (source == null || target == null) {
+			return false;
+		}
+		
+		for (Edge edge : edges) {
+			if (edge.equals(new Edge(source, target))) {
+				return true;
+			}
+		}
+		
+		return false;
+		
+//		return this.edges.contains(new Edge(source, target));
+	}
+	
+	public boolean containsEdge(Edge edge) {
+		if (edge == null) {
+			return false;
+		}
+		return this.edges.contains(edge);
+		
 	}
 	
 	public String toString() {
