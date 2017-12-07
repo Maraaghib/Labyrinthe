@@ -2,8 +2,11 @@ package view;
 
 import javafx.stage.Stage;
 
+
 import model.*;
 import model.Labyrinth.Directions;
+import model.Wall;
+import model.Wall.WallType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
@@ -33,10 +36,14 @@ public class View {
 		Graph graph = model.getGraph();
 		primaryStage.setTitle("Labyrinth");
 		ViewFrame.drawFrame(primaryStage, Labyrinth.WIDTH, Labyrinth.HEIGHT);
-		for (int x = 0; x < 16; x++) {
-			for (int y = 0; y < 16; y++) {
-				ViewFrame.drawWall(x, y, x+1, y, ViewFrame.WALL_COLOR); // Murs verticaux
-				ViewFrame.drawWall(x, y, x, y+1, ViewFrame.WALL_COLOR); // Murs horizontaux
+		for (int x = 0; x < Labyrinth.WIDTH; x++) {
+			for (int y = 0; y < Labyrinth.HEIGHT; y++) {
+				if(model.getWallType(x, y, Directions.EAST) == WallType.WALL){
+					ViewFrame.drawWall(x, y, x+1, y, ViewFrame.WALL_COLOR); // Murs verticaux
+				}
+				if(model.getWallType(x, y, Directions.SOUTH) == WallType.WALL){
+					ViewFrame.drawWall(x, y, x, y+1, ViewFrame.WALL_COLOR); // Murs horizontaux
+				}
 			}
 		}
 
@@ -53,7 +60,7 @@ public class View {
 		}
 		*/
 
-		for (int y = 0; y < Labyrinth.HEIGHT; y++) {
+		/*for (int y = 0; y < Labyrinth.HEIGHT; y++) {
 			for (int x = 0; x < Labyrinth.WIDTH; x++) {
 				Vertex source = new Vertex(x, y);
 
@@ -77,7 +84,7 @@ public class View {
 						ViewFrame.drawWall(source.getX(), source.getY(), vertexWEST.getX(), vertexWEST.getY(), ViewFrame.SCENE_COLOR);
 					}
 			}
-		}
+		}*/
 
 		primaryStage.show();
 	}

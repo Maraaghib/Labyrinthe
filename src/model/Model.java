@@ -1,4 +1,6 @@
 package model;
+import model.Wall.WallType;
+import model.Labyrinth.Directions;
 
 public class Model {
 	
@@ -12,8 +14,7 @@ public class Model {
 		this.vertex = new Vertex();
 		this.graph = new Graph(vertex); 
 		this.labyrinth = new Labyrinth(graph);
-		labyrinth.buildRandomPath(vertex);
-//		System.out.println("==========================================================================================="+graph+"===========================================================================================");;
+		labyrinth.buildLabyrinth();
 	}
 	
 	public static Graph getGraph() {
@@ -36,5 +37,9 @@ public class Model {
 	public static void usage(String message) {
 		System.out.println(message);
 		System.exit(0);
+	}
+	
+	public WallType getWallType(int x, int y, Directions dir){
+		return labyrinth.getWallType(x, y, dir);
 	}
 }
