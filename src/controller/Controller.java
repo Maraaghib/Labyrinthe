@@ -17,7 +17,6 @@ public class Controller implements EventHandler<ActionEvent> {
 		// TODO Auto-generated constructor stub
 		view = View.getInstance();
 		model = Model.getInstance();
-		System.out.println("Fin constructeur controller");
 	}
 
 	public static Controller getInstance() {

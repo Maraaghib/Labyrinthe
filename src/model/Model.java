@@ -7,7 +7,6 @@ public class Model {
 	private Graph graph;
 	private static Labyrinth labyrinth;
 	
-	public static int cpt = 0;
 	
 	private Model() {
 		this.vertex = new Vertex();

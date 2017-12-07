@@ -86,6 +86,10 @@ public class Graph {
 		// TODO Auto-generated method stub
 		return this.vertices;
 	}
+	
+	public ArrayList<Edge> edgeSet() {
+		return this.edges;
+	}
 
 	public void addVertex(Vertex next) {
 		// TODO Auto-generated method stub

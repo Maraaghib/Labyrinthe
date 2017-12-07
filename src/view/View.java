@@ -31,9 +31,8 @@ public class View {
 
 	public void start(Stage primaryStage, Model model) {
 		Graph graph = model.getGraph();
-//		System.out.println("Dans view: "+graph);
 		primaryStage.setTitle("Labyrinth");
-		ViewFrame.drawFrame(primaryStage, 16, 16);
+		ViewFrame.drawFrame(primaryStage, Labyrinth.WIDTH, Labyrinth.HEIGHT);
 		for (int x = 0; x < 16; x++) {
 			for (int y = 0; y < 16; y++) {
 				ViewFrame.drawWall(x, y, x+1, y, ViewFrame.WALL_COLOR); // Murs verticaux
@@ -41,34 +40,42 @@ public class View {
 			}
 		}
 
+		/*
+		for (Edge edge : graph.edgeSet()) {
+
+			ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
+
+			ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
+
+			ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
+
+			ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
+		}
+		*/
+
 		for (int y = 0; y < Labyrinth.HEIGHT; y++) {
 			for (int x = 0; x < Labyrinth.WIDTH; x++) {
 				Vertex source = new Vertex(x, y);
 
-				Vertex vertexNORTH = graph.getVertexByDir(source, Directions.NORTH);
+					Vertex vertexNORTH = graph.getVertexByDir(source, Directions.NORTH);
+					if(graph.containsEdge(source, vertexNORTH) && vertexNORTH != null) {
+						ViewFrame.drawWall(source.getX(), source.getY(), vertexNORTH.getX(), vertexNORTH.getY(), ViewFrame.SCENE_COLOR);
+					}
 
-				System.out.println("Here !!!!!!");
-				System.out.println("Source -> "+source+"\n"+"vertexNORTH -> "+vertexNORTH);
-				System.out.println("graph.containsEdge(source, vertexNORTH): " +graph.containsEdge(source, vertexNORTH));
+					Vertex vertexSOUTH = graph.getVertexByDir(source, Directions.SOUTH);
+					if(graph.containsEdge(source, vertexSOUTH) && vertexSOUTH != null) {
+						ViewFrame.drawWall(source.getX(), source.getY(), vertexSOUTH.getX(), vertexSOUTH.getY(), ViewFrame.SCENE_COLOR);
+					}
 
-				if(graph.containsEdge(source, vertexNORTH) && vertexNORTH != null) {
-					ViewFrame.drawWall(source.getX(), source.getY(), vertexNORTH.getX(), vertexNORTH.getY(), ViewFrame.SCENE_COLOR);
-				}
+					Vertex vertexEAST = graph.getVertexByDir(source, Directions.EAST);
+					if(graph.containsEdge(source, vertexEAST) && vertexEAST != null) {
+						ViewFrame.drawWall(source.getX(), source.getY(), vertexEAST.getX(), vertexEAST.getY(), ViewFrame.SCENE_COLOR);
+					}
 
-				Vertex vertexSOUTH = graph.getVertexByDir(source, Directions.SOUTH);
-				if(graph.containsEdge(source, vertexSOUTH) && vertexSOUTH != null) {
-					ViewFrame.drawWall(source.getX(), source.getY(), vertexSOUTH.getX(), vertexSOUTH.getY(), ViewFrame.SCENE_COLOR);
-				}
-
-				Vertex vertexEAST = graph.getVertexByDir(source, Directions.EAST);
-				if(graph.containsEdge(source, vertexEAST) && vertexEAST != null) {
-					ViewFrame.drawWall(source.getX(), source.getY(), vertexEAST.getX(), vertexEAST.getY(), ViewFrame.SCENE_COLOR);
-				}
-
-				Vertex vertexWEST = graph.getVertexByDir(source, Directions.WEST);
-				if(graph.containsEdge(source, vertexWEST) && vertexWEST != null) {
-					ViewFrame.drawWall(source.getX(), source.getY(), vertexWEST.getX(), vertexWEST.getY(), ViewFrame.SCENE_COLOR);
-				}
+					Vertex vertexWEST = graph.getVertexByDir(source, Directions.WEST);
+					if(graph.containsEdge(source, vertexWEST) && vertexWEST != null) {
+						ViewFrame.drawWall(source.getX(), source.getY(), vertexWEST.getX(), vertexWEST.getY(), ViewFrame.SCENE_COLOR);
+					}
 			}
 		}
 

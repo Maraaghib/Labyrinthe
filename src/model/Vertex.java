@@ -3,26 +3,26 @@ package model;
 import model.Labyrinth.Directions;
 
 public class Vertex implements Comparable<Vertex> {
-	
+
 	private int nbr;
 	private int x;
 	private int y;
-	
+
 	public Vertex() {
-		super();
-		this.nbr = 0;
+//		super();
 		this.setX(0);
 		this.setY(0);
+		this.setNbr(0);
 	}
-	
+
 	public Vertex(int x, int y) {
-		super();
+//		super();
 		this.setX(x);
-		this.setY(y);		
+		this.setY(y);
 	}
 
 	public Vertex(int x, int y, int nbr) {
-		super();
+//		super();
 		this.setX(x);
 		this.setY(y);
 		this.setNbr(nbr);
@@ -33,9 +33,9 @@ public class Vertex implements Comparable<Vertex> {
 	}
 
 	public void setNbr(int nbr) {
-		if(nbr <= (Labyrinth.WIDTH * Labyrinth.HEIGHT)) {
+		//if(nbr <= (Labyrinth.WIDTH * Labyrinth.HEIGHT)) {
 			this.nbr = nbr;
-		}
+		//}
 	}
 
 	public int getX() {
@@ -45,7 +45,7 @@ public class Vertex implements Comparable<Vertex> {
 	public void setX(int x) {
 		if (x <= Labyrinth.WIDTH) {
 			this.x = x;
-		}		
+		}
 	}
 
 	public int getY() {
@@ -107,5 +107,5 @@ public class Vertex implements Comparable<Vertex> {
 		return inBorder;
 	}
 
-	
+
 }

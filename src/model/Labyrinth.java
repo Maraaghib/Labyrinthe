@@ -102,10 +102,10 @@ public class Labyrinth {
 		// Pour chacune de ces directions, on avance en profondeur d'abord
 		for (int i = 0; i < 4; ++i) {
 			Directions dir = directions[i];
-			System.out.println("Direction: "+directions[i]);
-			System.out.println("vertex.inBorders(dir) = "+vertex.inBorders(dir));
-			System.out.println("this.graph.doesntExist(vertex, dir) = "+this.graph.doesntExist(vertex, dir));
-			if (vertex != null && vertex.inBorders(dir) && this.graph.doesntExist(vertex, dir)) {
+//			System.out.println("Direction: "+directions[i]);
+//			System.out.println("vertex.inBorders(dir) = "+vertex.inBorders(dir));
+//			System.out.println("this.graph.doesntExist(vertex, dir) = "+this.graph.doesntExist(vertex, dir));
+			if (vertex.inBorders(dir) && this.graph.doesntExist(vertex, dir)) {
 				int x = vertex.getX();
 				int y = vertex.getY();
 				int xt = 0, yt = 0;
@@ -134,9 +134,9 @@ public class Labyrinth {
 //				if (graph.containsVertex(vertex)) {
 					this.graph.addVertex(next);
 					this.graph.addEdge(vertex, next);
-					System.out.println("vertex.toString() : "+vertex);
-					System.out.println("next.toString()   : "+ next.toString());
-					System.out.println("graph.containsEdge(vertex, next)______________________________________________: "+ graph.containsEdge(vertex, next));
+//					System.out.println("vertex.toString() : "+vertex);
+//					System.out.println("next.toString()   : "+ next.toString());
+//					System.out.println("graph.containsEdge(vertex, next)______________________________________________: "+ graph.containsEdge(vertex, next));
 //					System.out.println("Je suis là !!");
 					buildRandomPath(next);
 //				}
