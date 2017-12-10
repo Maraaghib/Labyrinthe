@@ -15,11 +15,6 @@ public class Graph {
 	private ArrayList<Edge> edges;
 	
 	public Graph() {
-//		super();
-//		Vertex vertex = new Vertex();
-//		this.simpleGraph = new SimpleGraph<Vertex, Edge>(Edge.class);
-//		this.simpleGraph.addVertex(vertex);
-		
 		vertices = new ArrayList<Vertex>();
 		edges = new ArrayList<Edge>();
 		this.vertices.add(new Vertex());
@@ -27,23 +22,13 @@ public class Graph {
 	}
 	
 	public Graph(Vertex vertex) {
-//		super();
-//		this.simpleGraph = new SimpleGraph<Vertex, Edge>(Edge.class);
-//		this.simpleGraph.addVertex(vertex);
-		
 		vertices = new ArrayList<Vertex>();
 		edges = new ArrayList<Edge>();
 		this.addVertex(vertex);
 	}
 
-//	public SimpleGraph<Vertex, Edge> getGraph() {
-//		return this.simpleGraph;
-//	}
-
 	public Edge getEdge(Vertex vertex, Directions dir) throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
-//		return this.getEdge(vertex, this.getVertexByDir(vertex, dir));
-		
 		for (Edge edge : this.edges) {
 			if(edge.equals(new Edge(vertex, this.getVertexByDir(vertex, dir)))) {
 				return (Edge) edge.clone();
@@ -77,11 +62,6 @@ public class Graph {
 		return null;
 	}
 
-	/*public Set<Vertex> vertexSet() {
-		// TODO Auto-generated method stub
-		return this.simpleGraph.vertexSet();
-	}*/
-	
 	public ArrayList<Vertex> vertexSet() {
 		// TODO Auto-generated method stub
 		return this.vertices;
@@ -93,19 +73,9 @@ public class Graph {
 
 	public boolean addVertex(Vertex next) {
 		// TODO Auto-generated method stub
-
-		/*try {
-			if (!this.containsVertex(next)) {
-				this.simpleGraph.addVertex(next);
-			}
-		} catch (NullPointerException e) {
-			// TODO: handle exception
-			Model.usage("Graph.java:addVertex(...): The specified vertex is null !");
-		}
-		System.out.println("addVertex appelee avec succès !");*/
 		
 		if(!this.containsVertex(next)) {
-			this.vertices.add(next); // Récupérer le résultat booléen et le retourner
+			this.vertices.add(next); 
 			return true;
 		}
 		return false;
@@ -113,19 +83,6 @@ public class Graph {
 
 	public void addEdge(Vertex vertex, Vertex next) {
 		// TODO Auto-generated method stub
-		/*try {
-			if(!this.containsEdge(vertex, next)) {
-				this.simpleGraph.addEdge(vertex, next);
-			}
-		} catch (IllegalArgumentException e) {
-			// TODO: handle exception
-			Model.usage("Graph.java:addEdge(...): Source or target vertices are not found in the graph");
-		} catch (NullPointerException npe) {
-			// TODO: handle exception
-			Model.usage("One of the vertices is null");
-		}
-		System.out.println("addEdge appelee avec succès !");*/
-		
 		Edge edge = new Edge(vertex, next);
 		if(!this.containsEdge(vertex, next)){
 			this.edges.add(edge);
@@ -134,13 +91,10 @@ public class Graph {
 
 	public boolean doesntExist(Vertex vertex, Directions dir) {
 		// TODO Auto-generated method stub
-//		boolean notExistVertex = (this.getVertexByDir(vertex, dir) == null) ? true : false;
 		return !this.containsVertex(this.getVertexByDir(vertex, dir));
 	}
 	
 	public boolean containsVertex(Vertex vertex) {
-//		return this.simpleGraph.containsVertex(vertex);
-		
 		if (vertex != null) {
 			for (Vertex ver : vertices) {
 				if (ver.equals(vertex)) {
@@ -150,13 +104,9 @@ public class Graph {
 		}
 		
 		return false;
-		
-//		return this.vertices.contains(vertex);
 	}
 	
 	public boolean containsEdge(Vertex source, Vertex target) {
-//		return this.simpleGraph.containsEdge(source, target);
-		
 		if (source == null || target == null) {
 			return false;
 		}
@@ -168,8 +118,6 @@ public class Graph {
 		}
 		
 		return false;
-		
-//		return this.edges.contains(new Edge(source, target));
 	}
 	
 	public boolean containsEdge(Edge edge) {
@@ -182,10 +130,6 @@ public class Graph {
 	
 	public String toString() {
 		StringBuffer str = new StringBuffer("Graph: \n");
-//		for (Vertex vertex : this.vertexSet()) {
-//			str.append(vertex.toString());
-//			str.append("\n");
-//		}
 		for (Edge edge : this.edgeSet()) {
 			str.append(edge.toString());
 			str.append("\n");

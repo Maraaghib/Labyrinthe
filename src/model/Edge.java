@@ -3,7 +3,6 @@
  */
 package model;
 
-import org.jgrapht.graph.DefaultEdge;
 
 /**
  * @author hamza
@@ -82,13 +81,6 @@ public class Edge implements Comparable<Edge> {
 	public void setType(Type type) {
 		this.type = type;
 	}
-	
-
-//	@Override
-//	public boolean equals(Object obj) {
-//		// TODO Auto-generated method stub
-//		return this.getSource().equals(((Edge)obj).getSource()) && this.getTarget().equals(((Edge)obj).getTarget());
-//	}
 
 	@Override
 	protected Object clone() throws CloneNotSupportedException {

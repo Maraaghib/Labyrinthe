@@ -7,7 +7,7 @@ public class Model {
 	private static Model instance = null;
 	private Vertex vertex;
 	private Graph graph;
-	private static Labyrinth labyrinth;
+	private Labyrinth labyrinth;
 	
 	
 	private Model() {
@@ -18,18 +18,16 @@ public class Model {
 		this.graph = new Graph(vertex); 
 		this.labyrinth = new Labyrinth(graph);
 		labyrinth.buildRandomPath(vertex);
-		System.out.println("==========================================================================================="+graph+"===========================================================================================");
 	}
 	
-	public static Graph getGraph() {
+	public Graph getGraph() {
 		return labyrinth.getGraph();
 	}
 	
 	public static Model getInstance() {
-		
 		if(instance == null) {
 			instance = new Model();
-			System.out.println("Instance de la classe Model crÃ©Ã©e !");
+			System.out.println("Instance de la classe Model créée !");
 		}
 		else {
 			System.out.println("Instance de la classe Model existante !");
