@@ -40,7 +40,7 @@ public class Edge implements Comparable<Edge> {
 
 	// default
 	public Edge() {
-		super();
+//		super();
 		this.type = Type.CORRIDOR;
 	}
 	

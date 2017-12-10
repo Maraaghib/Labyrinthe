@@ -40,7 +40,7 @@ public class Labyrinth {
 	}
 
 	public Labyrinth(Graph graph) {
-		super();
+//		super();
 		this.graph = graph;
 	}
 
@@ -59,7 +59,7 @@ public class Labyrinth {
 					Vertex next = graph.getVertexByDir(actual, dir);
 					if (next.getNbr() == 0) {
 						next.setNbr(actual.getNbr()+1);
-						if(next != source) {
+						if(next != source) { // next.equal(source) ??
 							fifo.add(next);
 						}
 					}
@@ -69,14 +69,14 @@ public class Labyrinth {
 	}
 
 	public void launchManhattan(Vertex source, Vertex target) throws CloneNotSupportedException {
-		for (Vertex vertex : graph.vertexSet()) { // vertexSet peut vouloir dire ensemble de sommets (set of vertexes)
+		for (Vertex vertex : graph.vertexSet()) {
 			vertex.setNbr(0);
 		}
 		calculateManhattanDistance(source, target);
 	}
 
 	public void buildRandomPath(Vertex vertex) {
-		// Une liste aléatoire des 4 directions
+		// Une liste aleatoire des 4 directions
 		Vector<Directions> v = new Vector<Directions>();
 
 		for (int i = 0; i < 4; ++i) {
