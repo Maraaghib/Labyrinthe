@@ -30,6 +30,16 @@ public class Graph {
 		}
 		return null;
 	}
+	
+	public Vertex getvertexByCoord(int x, int y) {
+		Vertex vertex = new Vertex(x, y);
+		for (Vertex ver : this.vertexSet()) {
+			if (vertex.equals(new Vertex(x, y))) {
+				return vertex;
+			}
+		}
+		return null;
+	}
 
 	public Vertex getVertexByDir(Vertex actual, Directions dir) {
 		// TODO Auto-generated method stub
