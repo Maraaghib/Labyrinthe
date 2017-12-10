@@ -32,7 +32,6 @@ public class Labyrinth {
 		SOUTH;
 	};
 
-	private Directions dir;
 	private Graph graph;
 
 	public Labyrinth() {

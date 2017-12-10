@@ -3,10 +3,8 @@ package view;
 import javafx.stage.Stage;
 
 import model.*;
-import model.Labyrinth.Directions;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.paint.Color;
 
 public class View {
 

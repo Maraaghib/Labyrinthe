@@ -3,14 +3,8 @@ package model;
 import model.Labyrinth.Directions;
 
 import java.util.ArrayList;
-import java.util.Set;
-
-import org.jgrapht.*;
-import org.jgrapht.graph.SimpleGraph;
 
 public class Graph {
-
-	private SimpleGraph<Vertex, Edge> simpleGraph;
 	private ArrayList<Vertex> vertices;
 	private ArrayList<Edge> edges;
 	
