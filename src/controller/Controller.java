@@ -23,7 +23,7 @@ public class Controller implements EventHandler<ActionEvent> {
 		// TODO Auto-generated method stub
 		if(instance == null) {
 			instance = new Controller();
-			System.out.println("Instance de la classe Controller crÃ©Ã©e !");
+			System.out.println("Instance de la classe Controller créée !");
 		}
 		else {
 			System.out.println("Instance de la classe Controller existante !");
