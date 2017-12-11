@@ -32,6 +32,10 @@ public class Model {
 		return labyrinth.getPlayer();
 	}
 	
+	public Enemy getEnemy() {
+		return labyrinth.getEnemy();
+	}
+	
 	public static Model getInstance() {
 		if(instance == null) {
 			instance = new Model();

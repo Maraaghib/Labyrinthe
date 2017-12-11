@@ -16,8 +16,10 @@ import javafx.scene.input.KeyEvent;
 public class View {
 
 	private static View instance = null;
-	private Image image;
-	private ImageView imageView;
+	private Image player;
+	private ImageView playerView;
+	private Image enemy;
+	private ImageView enemyView;
 
 	private View() {
 	}
@@ -50,17 +52,31 @@ public class View {
 			ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
 		}
 		
-		FileInputStream input = null;
+		//Affichage de player
+		FileInputStream playerInput = null;
 		try {
-			input = new FileInputStream("img/player.png");
+			playerInput = new FileInputStream("img/player.png");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		image = new Image(input);
-		imageView = new ImageView(image);
+		player = new Image(playerInput);
+		playerView = new ImageView(player);
 		
-		ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), imageView);
+		ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), playerView);
+
+		//Affichage de enemy
+		FileInputStream enemyInput = null;
+		try {
+			enemyInput = new FileInputStream("img/bad.png");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		enemy = new Image(enemyInput);
+		enemyView = new ImageView(enemy);
+		
+		ViewFrame.drawSprite(model.getEnemy().getX(), model.getEnemy().getY(), enemyView);
 
 		primaryStage.show();
 	}
@@ -71,8 +87,18 @@ public class View {
 		int y = model.getPlayer().getY();
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-		imageView.setX(xt);
-		imageView.setY(yt);
+		playerView.setX(xt);
+		playerView.setY(yt);
+	}
+	
+	public void updateEnemyPosition(Model model) {
+//		ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), imageView);
+		int x = model.getEnemy().getX();
+		int y = model.getEnemy().getY();
+		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		enemyView.setX(xt);
+		enemyView.setY(yt);
 	}
 
 	public void addOnAction(EventHandler<KeyEvent> eventHandler) {

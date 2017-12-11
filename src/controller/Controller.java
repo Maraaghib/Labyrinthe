@@ -46,6 +46,8 @@ public class Controller implements EventHandler<KeyEvent> {
 		if (event.getCode() == KeyCode.RIGHT) {
 			model.getPlayer().move(model.getLabyrinth(), Directions.EAST);
 			view.updatePlayerPosition(model);
+			model.getEnemy().move(model.getLabyrinth(), Directions.EAST);
+			view.updateEnemyPosition(model);
 		}
 		else if (event.getCode() == KeyCode.LEFT) {
 			model.getPlayer().move(model.getLabyrinth(), Directions.WEST);
