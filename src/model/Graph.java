@@ -44,6 +44,13 @@ public class Graph {
 	public Vertex getVertexByDir(Vertex actual, Directions dir) {
 		// TODO Auto-generated method stub
 		Vertex vertex = new Vertex(actual.getX(), actual.getY());
+		Vertex testVertex = null;
+		try {
+			testVertex = (Vertex) vertex.clone(); // Avec leqeul tester le débordement, avant la mise à jour des coordonnées
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		switch (dir) {
 			case NORTH:
 				vertex.setY(actual.getY()-1);
@@ -59,7 +66,7 @@ public class Graph {
 				break;
 		}
 
-		if (vertex.inBorders(dir)) {
+		if (testVertex.inBorders(dir)) {
 			return vertex;
 		}
 

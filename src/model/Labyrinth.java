@@ -33,19 +33,26 @@ public class Labyrinth {
 	};
 
 	private Graph graph;
+	private Player player;
 
 	public Labyrinth() {
-		graph = new Graph();
+		this.graph = new Graph();
+		this.player = new Player(0, 0);
 		System.out.println("Intance de la classe Labyrinth cree !");
 	}
 
 	public Labyrinth(Graph graph) {
 //		super();
 		this.graph = graph;
+		this.player = new Player(0, 0);
 	}
 
 	public Graph getGraph() {
 		return this.graph;
+	}
+	
+	public Player getPlayer() {
+		return this.player;
 	}
 
 	private void calculateManhattanDistance(Vertex source, Vertex target) throws CloneNotSupportedException {

@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -14,7 +15,7 @@ public class ViewFrame {
 	static final int CELL = 9; // Size of the cells (in units)
 	public static final Paint WALL_COLOR = Color.BURLYWOOD;
 	private static BorderPane pane = new BorderPane();
-	private static Scene scene;
+	public static Scene scene;
 	public static final Paint SCENE_COLOR = Color.WHITE;
 
 	public ViewFrame() {
@@ -61,7 +62,6 @@ public class ViewFrame {
 				pane.getChildren().add(square);
 			}
 		}
-		
 	}
 	
 	public static void drawWall(int xs, int ys, int xt, int yt, Paint color) {
@@ -86,6 +86,16 @@ public class ViewFrame {
 			pane.getChildren().add(square);
 		}
 		
+	}
+	
+	public static void drawSprite(int x, int y, ImageView imageView) {
+		
+		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		imageView.setX(xt);
+		imageView.setY(yt);
+//		imageView.relocate(xt, yt);
+		pane.getChildren().add(imageView);
 	}
 	
 }

@@ -78,7 +78,7 @@ public class Vertex implements Comparable<Vertex> {
 
 	@Override
 	public String toString() {
-		return "("+this.getX()+" , "+this.getY()+")";
+		return "["+this.getNbr()+"]("+this.getX()+" , "+this.getY()+")";
 	}
 
 	public boolean inBorders(Directions dir) {

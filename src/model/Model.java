@@ -20,8 +20,16 @@ public class Model {
 		labyrinth.buildRandomPath(vertex);
 	}
 	
+	public Labyrinth getLabyrinth() {
+		return this.labyrinth;
+	}
+	
 	public Graph getGraph() {
 		return labyrinth.getGraph();
+	}
+	
+	public Player getPlayer() {
+		return labyrinth.getPlayer();
 	}
 	
 	public static Model getInstance() {
