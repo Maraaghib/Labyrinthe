@@ -59,7 +59,7 @@ public class Controller implements EventHandler<KeyEvent> {
 			model.getPlayer().move(model.getLabyrinth(), Directions.SOUTH);
 			view.updatePlayerPosition(model);
 		}
-		model.getEnemy().move(model.getLabyrinth(), model.getPlayer().getX(), model.getPlayer().getY());
+		model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 		view.updateEnemyPosition(model);
 	}
 

@@ -35,6 +35,7 @@ public class Labyrinth {
 	private Graph graph;
 	private Player player;
 	private Enemy enemy;
+	private int[][] manhattan;
 
 	public Labyrinth() {
 		this.graph = new Graph();
@@ -47,7 +48,8 @@ public class Labyrinth {
 //		super();
 		this.graph = graph;
 		this.player = new Player(0, 0);
-		this.enemy = new Enemy(0, 0);
+		this.enemy = new Enemy(15, 15);
+		this.manhattan = new int[WIDTH][HEIGHT];
 	}
 
 	public Graph getGraph() {
@@ -61,32 +63,50 @@ public class Labyrinth {
 	public Enemy getEnemy(){
 		return this.enemy;
 	}
+	
+	public int getManhattan(int x, int y){
+		return manhattan[x][y];
+	}
 
-	private void calculateManhattanDistance(Vertex source, Vertex target) throws CloneNotSupportedException {
-		Queue<Vertex> fifo = new ArrayDeque<Vertex>();
-		target.setNbr(1);
-		fifo.add(target);
-		while (!fifo.isEmpty()) {
-			Vertex actual = fifo.remove();
-			for (Directions dir : Directions.values()) {
-				if (this.isOpened(actual, dir)) {
-					Vertex next = graph.getVertexByDir(actual, dir);
-					if (next.getNbr() == 0) {
-						next.setNbr(actual.getNbr()+1);
-						if(next != source) { // next.equal(source) ??
-							fifo.add(next);
-						}
-					}
+	private void calculateManhattanDistance(Vertex current, int depth) throws CloneNotSupportedException {
+		if(manhattan[current.getX()][current.getY()] == -1){
+			manhattan[current.getX()][current.getY()] = depth;
+			if(graph.getVertexByDir(current, Directions.EAST) != null){
+				if(isOpened(current, Directions.EAST)){
+					calculateManhattanDistance(graph.getVertexByDir(current, Directions.EAST), depth+1);
+				}
+			}
+			
+			if(graph.getVertexByDir(current, Directions.SOUTH) != null){
+				if(isOpened(current, Directions.SOUTH)){
+					calculateManhattanDistance(graph.getVertexByDir(current, Directions.SOUTH), depth+1);
+				}
+			}
+			
+			if(graph.getVertexByDir(current, Directions.WEST) != null){
+				if(isOpened(current, Directions.WEST)){
+					calculateManhattanDistance(graph.getVertexByDir(current, Directions.WEST), depth+1);
+				}
+			}
+			
+			if(graph.getVertexByDir(current, Directions.NORTH) != null){
+				if(isOpened(current, Directions.NORTH)){
+					calculateManhattanDistance(graph.getVertexByDir(current, Directions.NORTH), depth+1);
 				}
 			}
 		}
+		
 	}
 
-	public void launchManhattan(Vertex source, Vertex target) throws CloneNotSupportedException {
-		for (Vertex vertex : graph.vertexSet()) {
-			vertex.setNbr(0);
+	public void launchManhattan(Vertex target) throws CloneNotSupportedException {
+		for(int i = 0; i < 16; i++){
+			for(int j = 0; j < 16; j++){
+				manhattan[i][j] = -1;
+			}
 		}
-		calculateManhattanDistance(source, target);
+		calculateManhattanDistance(target, 0);
+		int i = 0;
+		i++;
 	}
 
 	public void buildRandomPath(Vertex vertex) {
