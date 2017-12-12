@@ -12,11 +12,8 @@ public class Enemy extends Sprite {
 	
 	//Calcul avec l'algorithme de Manhattan la direction que le méchant doit prendre pour aller vers le gentil
 	public void move(Labyrinth labyrinth, int x, int y) {
-		try {
+
 		labyrinth.launchManhattan(labyrinth.getGraph().getvertexByCoord(labyrinth.getPlayer().getX(), labyrinth.getPlayer().getY()));
-		}catch (CloneNotSupportedException e){
-			e.printStackTrace();
-		}
 		
 		Directions dir = null;
 		int min = Integer.MAX_VALUE;

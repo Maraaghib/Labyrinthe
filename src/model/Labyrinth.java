@@ -45,11 +45,27 @@ public class Labyrinth {
 	}
 
 	public Labyrinth(Graph graph) {
-//		super();
 		this.graph = graph;
-		this.player = new Player(0, 0);
-		this.enemy = new Enemy(15, 15);
 		this.manhattan = new int[WIDTH][HEIGHT];
+		this.player = new Player(0, 0);
+		buildRandomPath(graph.getvertexByCoord(WIDTH, HEIGHT));
+		//On place enemy le plus loin possible du joueur
+		launchManhattan(graph.getvertexByCoord(0, 0));
+		
+		int max = 0;
+		int x = 0;
+		int y = 0;
+		for(int i = 0; i < WIDTH; i++){
+			for(int j = 0; j < HEIGHT; j++){
+				if(manhattan[i][j] > max){
+					max = manhattan[i][j];
+					x = i;
+					y = j;
+				}
+			}
+		}
+		this.enemy = new Enemy(x, y);
+		
 	}
 
 	public Graph getGraph() {
@@ -98,15 +114,17 @@ public class Labyrinth {
 		
 	}
 
-	public void launchManhattan(Vertex target) throws CloneNotSupportedException {
+	public void launchManhattan(Vertex target){
 		for(int i = 0; i < 16; i++){
 			for(int j = 0; j < 16; j++){
 				manhattan[i][j] = -1;
 			}
 		}
-		calculateManhattanDistance(target, 0);
-		int i = 0;
-		i++;
+		try {
+			calculateManhattanDistance(target, 0);
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void buildRandomPath(Vertex vertex) {
@@ -188,6 +206,8 @@ public class Labyrinth {
 		return (edge != null && (edge.getType() == Edge.Type.OPENED_DOOR));
 	}
 
-
-
+	//Fonction qui regarde si le joueur est mort
+	public boolean checkDead(){
+		return player.getX() == enemy.getX() && player.getY() == enemy.getY();
+	}
 }

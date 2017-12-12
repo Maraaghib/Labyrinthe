@@ -39,27 +39,25 @@ public class Controller implements EventHandler<KeyEvent> {
 
 	@Override
 	public void handle(KeyEvent event) {
-		// TODO Auto-generated method stub
-//		if (event.getSource() instanceof ImageView) {
-//			
-//		}
+		
 		if (event.getCode() == KeyCode.RIGHT) {
-			model.getPlayer().move(model.getLabyrinth(), Directions.EAST);
-			view.updatePlayerPosition(model);
+			if(model.getPlayer().move(model.getLabyrinth(), Directions.EAST))
+				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 		}
 		else if (event.getCode() == KeyCode.LEFT) {
-			model.getPlayer().move(model.getLabyrinth(), Directions.WEST);
-			view.updatePlayerPosition(model);
+			if(model.getPlayer().move(model.getLabyrinth(), Directions.WEST))
+			model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 		}
 		else if (event.getCode() == KeyCode.UP) {
-			model.getPlayer().move(model.getLabyrinth(), Directions.NORTH);
-			view.updatePlayerPosition(model);
+			if(model.getPlayer().move(model.getLabyrinth(), Directions.NORTH))
+			model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 		}
 		else if (event.getCode() == KeyCode.DOWN) {
-			model.getPlayer().move(model.getLabyrinth(), Directions.SOUTH);
-			view.updatePlayerPosition(model);
-		}
-		model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+			if(model.getPlayer().move(model.getLabyrinth(), Directions.SOUTH))
+			model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+		}		
+		
+		view.updatePlayerPosition(model);
 		view.updateEnemyPosition(model);
 	}
 

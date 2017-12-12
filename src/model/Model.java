@@ -17,7 +17,6 @@ public class Model {
 		this.vertex = new Vertex(x, y, 0);
 		this.graph = new Graph(vertex); 
 		this.labyrinth = new Labyrinth(graph);
-		labyrinth.buildRandomPath(vertex);
 	}
 	
 	public Labyrinth getLabyrinth() {

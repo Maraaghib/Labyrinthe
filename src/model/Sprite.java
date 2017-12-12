@@ -53,14 +53,17 @@ public class Sprite implements ISprite {
 	}
 
 	@Override
-	public void move(Labyrinth labyrinth, Directions direc) {
+	public boolean move(Labyrinth labyrinth, Directions direc) {
 		// TODO Auto-generated method stub
 		Vertex vertex = this.getVertex(labyrinth.getGraph());
 		for (Directions dir : Directions.values()) {
 			Vertex next = labyrinth.getGraph().getVertexByDir(vertex, dir);
 			if (dir == direc && next != null && labyrinth.getGraph().containsEdge(vertex, next)) { // && (next.getNbr() == vertex.getNbr()-1)
-				this.moveByDir(dir);			}
+				this.moveByDir(dir);		
+				return true;
+			}
 		}
+		return false;
 	}
 
 	@Override
