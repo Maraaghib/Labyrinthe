@@ -8,6 +8,11 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 
+/**
+ * Classe utilisée par View pour l'affichage
+ * @author hamza
+ *
+ */
 public class ViewFrame {
 	
 	static final int SPAN = 4; // Pixels for a unit

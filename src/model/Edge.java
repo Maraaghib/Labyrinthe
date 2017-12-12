@@ -5,6 +5,7 @@ package model;
 
 
 /**
+ * Classe utilisée par Graph pour représenter les arrêts du graphe
  * @author hamza
  *
  */

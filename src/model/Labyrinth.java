@@ -10,6 +10,7 @@ import java.util.Vector;
 
 
 /**
+ * Classe qui modélise le labyrinthe
  * @author saseye
  *
  */
@@ -23,6 +24,11 @@ public class Labyrinth {
 	public static final int WIDTH = 16;
 	public static final int HEIGHT = 16;
 
+	/**
+	 * Énumération représentant les quatres directions orthogonales
+	 * @author Fabien
+	 *
+	 */
 	public enum Directions{
 		EAST,
 		WEST,
@@ -81,7 +87,9 @@ public class Labyrinth {
 	public int getManhattan(int x, int y){
 		return manhattan[x][y];
 	}
-
+	/**
+	 * Fonction récursive qui permet d'implémenter l'algorithme de Manhattan
+	 */
 	private void calculateManhattanDistance(Vertex current, int depth) throws CloneNotSupportedException {
 		if(manhattan[current.getX()][current.getY()] == -1){
 			manhattan[current.getX()][current.getY()] = depth;
@@ -112,6 +120,11 @@ public class Labyrinth {
 		
 	}
 
+	/**
+	 * Fonction qui exécute l'algorithme de Manhattan
+	 * Écrit dans manhattan[][] la distance par rapport à target
+	 * @param target l'origine de l'alogirthme de manhattan
+	 */
 	public void launchManhattan(Vertex target){
 		for(int i = 0; i < 16; i++){
 			for(int j = 0; j < 16; j++){
@@ -125,6 +138,9 @@ public class Labyrinth {
 		}
 	}
 
+	/**
+	 * Génère un labyrinthe parfait
+	 */
 	public void buildRandomPath(Vertex vertex) {
 		// Une liste aleatoire des 4 directions
 		Vector<Directions> v = new Vector<Directions>();
@@ -204,7 +220,10 @@ public class Labyrinth {
 		return (edge != null && (edge.getType() == Edge.Type.OPENED_DOOR));
 	}
 
-	//Fonction qui regarde si le joueur est mort
+	/**
+	 * Fonction qui regarde si le joueure est mort (si le méchant et le joueur sont sur la même case)
+	 * @return vrai si le joueur est mort faux sinon
+	 */
 	public boolean checkDead(){
 		return player.getX() == enemy.getX() && player.getY() == enemy.getY();
 	}

@@ -16,6 +16,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * Classe qui s'occupe de l'affichage à l'écran
+ * @author hamza
+ *
+ */
 public class View {
 
 	private static View instance = null;

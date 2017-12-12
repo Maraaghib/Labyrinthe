@@ -6,6 +6,7 @@ package model;
 import model.Labyrinth.Directions;
 
 /**
+ * Classe qui modélise un sprite (tel que le joueur, le méchant ou un bonbon
  * @author hamza
  *
  */
@@ -19,8 +20,8 @@ public class Sprite implements ISprite {
 	private int y;
 	
 	/**
-	 * @param x
-	 * @param y
+	 * @param x position du sprite
+	 * @param y position du sprite
 	 */
 	public Sprite(int x, int y) {
 		this.x = x;

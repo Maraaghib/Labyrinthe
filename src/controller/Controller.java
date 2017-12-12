@@ -9,6 +9,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+/**
+ * Classe qui crée View et Model et qui récupère les entrées du clavier (singleton)
+ * @author hamza
+ *
+ */
+
 public class Controller implements EventHandler<KeyEvent> {
 
 	private static Controller instance = null;

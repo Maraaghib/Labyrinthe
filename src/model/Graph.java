@@ -4,6 +4,11 @@ import model.Labyrinth.Directions;
 
 import java.util.ArrayList;
 
+/**
+ * Classe utilisée pour représenter le labyrinthe par un graphe
+ * @author Fabien
+ *
+ */
 public class Graph {
 	private ArrayList<Vertex> vertices;
 	private ArrayList<Edge> edges;
@@ -31,6 +36,12 @@ public class Graph {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param x coordonnée du vertex à renvoyer
+	 * @param y coordonnée du vertex à renvoyer
+	 * @return le vertex qui correspond aux coordonées
+	 */
 	public Vertex getvertexByCoord(int x, int y) {
 		Vertex vertex = new Vertex(x, y);
 		for (Vertex ver : this.vertexSet()) {
@@ -40,7 +51,13 @@ public class Graph {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * 
+	 * @param actual un vertex dans le graph
+	 * @param dir une direction orthogonal
+	 * @return le vertex situé à la direction donnée de actual s'il existe et s'il est relié dans le graphe
+	 */
 	public Vertex getVertexByDir(Vertex actual, Directions dir) {
 		// TODO Auto-generated method stub
 		Vertex vertex = new Vertex(actual.getX(), actual.getY());
@@ -73,11 +90,19 @@ public class Graph {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @return la liste des sommets du graphe
+	 */
 	public ArrayList<Vertex> vertexSet() {
 		// TODO Auto-generated method stub
 		return this.vertices;
 	}
 	
+	/**
+	 * 
+	 * @return la liste des arrêts du graphe
+	 */
 	public ArrayList<Edge> edgeSet() {
 		return this.edges;
 	}
@@ -105,6 +130,10 @@ public class Graph {
 		return !this.containsVertex(this.getVertexByDir(vertex, dir));
 	}
 	
+	/**
+	 * 
+	 * @return renvoie vrai si vertex appartient au graphe
+	 */
 	public boolean containsVertex(Vertex vertex) {
 		if (vertex != null) {
 			for (Vertex ver : vertices) {
@@ -117,6 +146,10 @@ public class Graph {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @return renvoie vrai si l'arrête reliant les deux sommets appartient au graphe
+	 */
 	public boolean containsEdge(Vertex source, Vertex target) {
 		if (source == null || target == null) {
 			return false;
@@ -131,6 +164,10 @@ public class Graph {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @return renvoie vrai si l'arrête appartient au graphe
+	 */
 	public boolean containsEdge(Edge edge) {
 		if (edge == null) {
 			return false;

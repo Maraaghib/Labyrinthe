@@ -2,13 +2,24 @@ package model;
 
 import model.Labyrinth.Directions;
 
+/**
+ * Classe qui reprèsente le méchant qui essaie d'attraper le joueur
+ * @author Fabien
+ *
+ */
 public class Enemy extends Sprite {
 	public Enemy(int x, int y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
 	
-	//Calcul avec l'algorithme de Manhattan la direction que le méchant doit prendre pour aller vers le gentil
+	/**
+	 * Calcul avec l'algorithme de Manhattan la direction que le méchant doit prendre 
+	 * pour aller vers le joueur le plus rapidement possible
+	 * @param labyrinth Le labyrinth dans lequel se déplace le méchant
+	 * @param x position du joueur
+	 * @param y position du joueur
+	 */	
 	public void move(Labyrinth labyrinth, int x, int y) {
 
 		labyrinth.launchManhattan(labyrinth.getGraph().getvertexByCoord(labyrinth.getPlayer().getX(), labyrinth.getPlayer().getY()));

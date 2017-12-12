@@ -1,7 +1,11 @@
 package model;
 
 import java.util.Random;
-
+/**
+ * Classe qui gère tous les éléments du jeux
+ * @author hamza
+ *
+ */
 public class Model {
 	
 	private static Model instance = null;

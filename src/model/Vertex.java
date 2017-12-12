@@ -2,6 +2,11 @@ package model;
 
 import model.Labyrinth.Directions;
 
+/**
+ * Classe utilisée par graph pour modéliser les sommets
+ * @author Fabien
+ *
+ */
 public class Vertex implements Comparable<Vertex> {
 
 	private int nbr;

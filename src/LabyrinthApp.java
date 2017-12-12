@@ -8,6 +8,7 @@ import javafx.stage.Stage;
  */
 
 /**
+ * Classe qui lance le programme en créant le controller
  * @author hamza
  *
  */
@@ -15,17 +16,11 @@ public class LabyrinthApp extends Application {
 
 	static Controller controller ; 
 	
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch();
 	}
 	
-	/* (non-Javadoc)
-	 * @see javafx.application.Application#start(javafx.stage.Stage)
-	 */
 	@Override
 	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
