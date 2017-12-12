@@ -7,11 +7,14 @@ import model.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class View {
 
@@ -20,6 +23,8 @@ public class View {
 	private ImageView playerView;
 	private Image enemy;
 	private ImageView enemyView;
+	private Image dead;
+	private ImageView deadView;
 
 	private View() {
 	}
@@ -57,7 +62,6 @@ public class View {
 		try {
 			playerInput = new FileInputStream("img/player.png");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		player = new Image(playerInput);
@@ -70,7 +74,6 @@ public class View {
 		try {
 			enemyInput = new FileInputStream("img/bad.png");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		enemy = new Image(enemyInput);
@@ -78,11 +81,20 @@ public class View {
 		
 		ViewFrame.drawSprite(model.getEnemy().getX(), model.getEnemy().getY(), enemyView);
 
+		//Affichage de dead
+		FileInputStream deadInput = null;
+		try {
+			deadInput = new FileInputStream("img/dead.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		dead = new Image(deadInput);
+		deadView = new ImageView(dead);
+				
 		primaryStage.show();
 	}
 	
 	public void updatePlayerPosition(Model model) {
-//		ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), imageView);
 		int x = model.getPlayer().getX();
 		int y = model.getPlayer().getY();
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
@@ -92,7 +104,6 @@ public class View {
 	}
 	
 	public void updateEnemyPosition(Model model) {
-//		ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), imageView);
 		int x = model.getEnemy().getX();
 		int y = model.getEnemy().getY();
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
@@ -104,6 +115,19 @@ public class View {
 	public void addOnAction(EventHandler<KeyEvent> eventHandler) {
 		ViewFrame.scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
 		
+	}
+	
+	//Affiche l'écran de game over
+	public void gameOver(Model model){
+		int x = model.getPlayer().getX();
+		int y = model.getPlayer().getY();
+		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		//On affiche dead.png
+		ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), deadView);
+		//On rend invisible player et enemy
+		playerView.setOpacity(0);
+		enemyView.setOpacity(0);
 	}
 
 }

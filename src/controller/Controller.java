@@ -1,13 +1,10 @@
 package controller;
 
 import view.View;
-import view.ViewFrame;
 import model.Labyrinth.Directions;
 import model.Model;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -17,6 +14,7 @@ public class Controller implements EventHandler<KeyEvent> {
 	private static Controller instance = null;
 	private View view;
 	private Model model;
+	private boolean gameOver = false;
 	
 	private Controller() {
 		// TODO Auto-generated constructor stub
@@ -40,25 +38,57 @@ public class Controller implements EventHandler<KeyEvent> {
 	@Override
 	public void handle(KeyEvent event) {
 		
-		if (event.getCode() == KeyCode.RIGHT) {
-			if(model.getPlayer().move(model.getLabyrinth(), Directions.EAST))
+		if(!gameOver){
+			if (event.getCode() == KeyCode.RIGHT) {
+				if(model.getPlayer().move(model.getLabyrinth(), Directions.EAST)){
+					if(model.getLabyrinth().checkDead()){
+						view.gameOver(model);
+						gameOver = true;
+						return;
+					}
+					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+				}
+			}
+			else if (event.getCode() == KeyCode.LEFT) {
+				if(model.getPlayer().move(model.getLabyrinth(), Directions.WEST)){
+					if(model.getLabyrinth().checkDead()){
+						view.gameOver(model);
+						gameOver = true;
+						return;
+					}
+					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+				}
+			}
+			else if (event.getCode() == KeyCode.UP) {
+				if(model.getPlayer().move(model.getLabyrinth(), Directions.NORTH)){
+					if(model.getLabyrinth().checkDead()){
+						view.gameOver(model);
+						gameOver = true;
+						return;
+					}
 				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+				}
+			}
+			else if (event.getCode() == KeyCode.DOWN) {
+				if(model.getPlayer().move(model.getLabyrinth(), Directions.SOUTH)){
+					if(model.getLabyrinth().checkDead()){
+						view.gameOver(model);
+						gameOver = true;
+						return;
+					}
+				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+				}
+			}		
+			
+			if(model.getLabyrinth().checkDead()){
+				view.gameOver(model);
+				gameOver = true;
+			}
+			else {
+				view.updatePlayerPosition(model);
+				view.updateEnemyPosition(model);
+			}
 		}
-		else if (event.getCode() == KeyCode.LEFT) {
-			if(model.getPlayer().move(model.getLabyrinth(), Directions.WEST))
-			model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
-		}
-		else if (event.getCode() == KeyCode.UP) {
-			if(model.getPlayer().move(model.getLabyrinth(), Directions.NORTH))
-			model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
-		}
-		else if (event.getCode() == KeyCode.DOWN) {
-			if(model.getPlayer().move(model.getLabyrinth(), Directions.SOUTH))
-			model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
-		}		
-		
-		view.updatePlayerPosition(model);
-		view.updateEnemyPosition(model);
 	}
 
 	public void start(Stage primaryStage) {

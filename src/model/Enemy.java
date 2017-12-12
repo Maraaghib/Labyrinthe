@@ -1,7 +1,5 @@
 package model;
 
-import com.sun.org.apache.xalan.internal.xsltc.dom.ClonedNodeListIterator;
-
 import model.Labyrinth.Directions;
 
 public class Enemy extends Sprite {
