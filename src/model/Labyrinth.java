@@ -45,7 +45,7 @@ public class Labyrinth {
 
 	public Labyrinth() {
 		this.graph = new Graph();
-		this.player = new Player(0, 0);
+		this.player = Player.getInstance(0, 0);
 		this.enemy = new Enemy(0, 0);
 		System.out.println("Intance de la classe Labyrinth cree !");
 	}
@@ -53,7 +53,7 @@ public class Labyrinth {
 	public Labyrinth(Graph graph) {
 		this.graph = graph;
 		this.manhattan = new int[WIDTH][HEIGHT];
-		this.player = new Player(0, 0);
+		this.player = Player.getInstance(0, 0);
 		buildRandomPath(graph.getvertexByCoord(WIDTH, HEIGHT));
 		try {
 			openDoorRandom();
