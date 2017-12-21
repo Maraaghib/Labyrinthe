@@ -3,6 +3,7 @@
  */
 package model;
 
+import model.Edge.Type;
 import model.Labyrinth.Directions;
 
 /**
@@ -59,7 +60,7 @@ public class Sprite implements ISprite {
 		Vertex vertex = this.getVertex(labyrinth.getGraph());
 		for (Directions dir : Directions.values()) {
 			Vertex next = labyrinth.getGraph().getVertexByDir(vertex, dir);
-			if (dir == direc && next != null && labyrinth.getGraph().containsEdge(vertex, next)) { // && (next.getNbr() == vertex.getNbr()-1)
+			if (dir == direc && next != null && labyrinth.getGraph().containsEdge(vertex, next) && labyrinth.getGraph().getEdge(vertex, next).getType() != Type.CLOSED_DOOR) { // && (next.getNbr() == vertex.getNbr()-1)
 				this.moveByDir(dir);		
 				return true;
 			}

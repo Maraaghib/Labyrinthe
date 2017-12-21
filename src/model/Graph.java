@@ -40,8 +40,15 @@ public class Graph {
 	
 	public Edge getEdge(Vertex source, Vertex target) {
 		Edge newEdge = new Edge(source, target);
-		if (this.containsEdge(newEdge)) {
-			return newEdge;
+		for (Edge edge : edges) {
+			if (edge.equals(newEdge)) {
+				try {
+					return (Edge) edge.clone();
+				} catch (CloneNotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		return null;
 	}
@@ -105,6 +112,15 @@ public class Graph {
 		Vertex randVertex = this.vertices.get(random.nextInt(this.vertices.size()));
 		if (this.containsVertex(randVertex)) {
 			return randVertex;
+		}
+		return null;
+	}
+	
+	public Edge randomEdge() {
+		Random random = new Random();
+		Edge randEdge = this.edges.get(random.nextInt(this.edges.size()));
+		if (this.containsEdge(randEdge)) {
+			return randEdge;
 		}
 		return null;
 	}

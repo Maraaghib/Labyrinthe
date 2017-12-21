@@ -61,6 +61,7 @@ public class Labyrinth {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		closeDoorRandom();
 		//On place enemy le plus loin possible du joueur
 		launchManhattan(graph.getvertexByCoord(0, 0));
 		
@@ -134,8 +135,8 @@ public class Labyrinth {
 	 * @param target l'origine de l'alogirthme de manhattan
 	 */
 	public void launchManhattan(Vertex target){
-		for(int i = 0; i < 16; i++){
-			for(int j = 0; j < 16; j++){
+		for(int i = 0; i < WIDTH; i++){
+			for(int j = 0; j < HEIGHT; j++){
 				manhattan[i][j] = -1;
 			}
 		}
@@ -153,7 +154,7 @@ public class Labyrinth {
 		// Une liste aleatoire des 4 directions
 		Vector<Directions> v = new Vector<Directions>();
 
-		for (int i = 0; i < 4; ++i) {
+		for (int i = 0; i < Directions.values().length; ++i) {
 			v.add(Directions.values()[i]);
 		}
 
@@ -252,6 +253,17 @@ public class Labyrinth {
 					}
 				}
 			}
+		}
+	}
+	
+	public void closeDoor(Edge edge) {
+		edge.setType(Type.CLOSED_DOOR);
+	}
+	
+	public void closeDoorRandom() {
+		Edge edge = graph.randomEdge();
+		if (edge.getType() != Type.CLOSED_DOOR) {
+			closeDoor(edge);
 		}
 	}
 
