@@ -13,6 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -30,6 +31,8 @@ public class View {
 	private ImageView enemyView;
 	private Image dead;
 	private ImageView deadView;
+	private Image openedDoor;
+	private ImageView openedDoorView;
 
 	private View() {
 	}
@@ -59,7 +62,29 @@ public class View {
 		}
 
 		for (Edge edge : graph.edgeSet()) {
-			ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
+//			System.out.println("Edge's type: "+edge);
+			switch (edge.getType()) {
+				case CORRIDOR:	
+					ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
+					break;
+				case OPENED_DOOR:
+					ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
+					//Affichage de player
+					FileInputStream openedDoorInput = null;
+					try {
+						openedDoorInput = new FileInputStream("img/door_open.png");
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+					openedDoor = new Image(openedDoorInput);
+					openedDoorView = new ImageView(openedDoor);
+					
+					ViewFrame.drawSprite(edge.getSource().getX(), edge.getSource().getY(), openedDoorView);
+					break;
+				case CLOSED_DOOR:
+					ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), Color.RED);
+					break;
+			}
 		}
 		
 		//Affichage de player

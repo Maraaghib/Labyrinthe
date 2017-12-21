@@ -24,8 +24,8 @@ public class Controller implements EventHandler<KeyEvent> {
 	
 	private Controller() {
 		// TODO Auto-generated constructor stub
-		view = View.getInstance();
 		model = Model.getInstance();
+		view = View.getInstance();
 	}
 
 	public static Controller getInstance() {

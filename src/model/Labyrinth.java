@@ -6,6 +6,8 @@ package model;
 import java.util.Random;
 import java.util.Vector;
 
+import model.Edge.Type;
+
 
 
 
@@ -53,6 +55,12 @@ public class Labyrinth {
 		this.manhattan = new int[WIDTH][HEIGHT];
 		this.player = new Player(0, 0);
 		buildRandomPath(graph.getvertexByCoord(WIDTH, HEIGHT));
+		try {
+			openDoorRandom();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//On place enemy le plus loin possible du joueur
 		launchManhattan(graph.getvertexByCoord(0, 0));
 		
@@ -218,6 +226,33 @@ public class Labyrinth {
 	public boolean isOpenedDoor(Vertex vertex, Directions dir) throws CloneNotSupportedException {
 		Edge edge = graph.getEdge(vertex, dir);
 		return (edge != null && (edge.getType() == Edge.Type.OPENED_DOOR));
+	}
+	
+	public void openDoorRandom() throws CloneNotSupportedException {
+		// On essaie 1000 fois, après quoi on renonce
+		for (int i = 1; i <= 1000; ++i) {
+			// On choisit un sommet au hasard
+			Vertex vertex = graph.randomVertex();
+			System.out.println("RandomVertex: "+vertex);
+			Random random = new Random();
+			if (vertex != null) {
+				// On choisit une direction au hasard (on devrait prendre seulement celles qui correspondent à des murs...)
+				Labyrinth.Directions dir = Directions.values()[random.nextInt(Directions.values().length)];
+				if (isWall(vertex, dir)) {
+					Vertex vertex2 = graph.getVertexByDir(vertex, dir);
+					if (vertex2 != null) {
+						Edge edge = graph.getEdge(vertex, vertex2); // ça doit normalement retourner null ??
+						if (edge == null) {
+							// on ajoute un saut entre ces sommets
+							Edge newEdge = new Edge(vertex, vertex2);
+							newEdge.setType(Type.OPENED_DOOR);
+							graph.addEdge(newEdge);
+							return;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**

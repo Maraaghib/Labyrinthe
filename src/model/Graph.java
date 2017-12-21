@@ -1,8 +1,10 @@
 package model;
 
+import model.Edge.Type;
 import model.Labyrinth.Directions;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Classe utilisée pour représenter le labyrinthe par un graphe
@@ -32,6 +34,14 @@ public class Graph {
 			if(edge.equals(new Edge(vertex, this.getVertexByDir(vertex, dir)))) {
 				return (Edge) edge.clone();
 			}
+		}
+		return null;
+	}
+	
+	public Edge getEdge(Vertex source, Vertex target) {
+		Edge newEdge = new Edge(source, target);
+		if (this.containsEdge(newEdge)) {
+			return newEdge;
 		}
 		return null;
 	}
@@ -89,6 +99,15 @@ public class Graph {
 
 		return null;
 	}
+	
+	public Vertex randomVertex() {
+		Random random = new Random();
+		Vertex randVertex = this.vertices.get(random.nextInt(this.vertices.size()));
+		if (this.containsVertex(randVertex)) {
+			return randVertex;
+		}
+		return null;
+	}
 
 	/**
 	 * 
@@ -121,6 +140,12 @@ public class Graph {
 		// TODO Auto-generated method stub
 		Edge edge = new Edge(vertex, next);
 		if(!this.containsEdge(vertex, next)){
+			this.edges.add(edge);
+		}
+	}
+	
+	public void addEdge(Edge edge) {
+		if (!this.containsEdge(edge)) {
 			this.edges.add(edge);
 		}
 	}

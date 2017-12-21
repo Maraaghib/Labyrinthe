@@ -29,6 +29,7 @@ public class Edge implements Comparable<Edge> {
 	
 	public Edge(Vertex source, Vertex target) {
 //		super();
+		this.type = Type.CORRIDOR;
 		this.source = source;
 		this.target = target;
 	}
