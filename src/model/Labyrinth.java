@@ -256,6 +256,43 @@ public class Labyrinth {
 		}
 	}
 	
+	public void openDoorFurthestFromPlayer() throws CloneNotSupportedException {
+		// On prend le sommet le plus loin de player
+		int max = 0;
+		int x = 0;
+		int y = 0;
+		for(int i = 0; i < WIDTH; i++){
+			for(int j = 0; j < HEIGHT; j++){
+				if(manhattan[i][j] > max){
+					max = manhattan[i][j];
+					x = i;
+					y = j;
+				}
+			}
+		}
+		Vertex vertex = graph.getvertexByCoord(x, y);
+		
+		System.out.println("RandomVertex: "+vertex);
+		Random random = new Random();
+		if (vertex != null) {
+			// On choisit une direction au hasard (on devrait prendre seulement celles qui correspondent à des murs...)
+			Labyrinth.Directions dir = Directions.values()[random.nextInt(Directions.values().length)];
+			if (isWall(vertex, dir)) {
+				Vertex vertex2 = graph.getVertexByDir(vertex, dir);
+				if (vertex2 != null) {
+					Edge edge = graph.getEdge(vertex, vertex2); // ça doit normalement retourner null ??
+					if (edge == null) {
+						// on ajoute un saut entre ces sommets
+						Edge newEdge = new Edge(vertex, vertex2);
+						newEdge.setType(Type.OPENED_DOOR);
+						graph.addEdge(newEdge);
+						return;
+					}
+				}
+			}
+		}
+	}
+	
 	public void closeDoor(Edge edge) {
 		edge.setType(Type.CLOSED_DOOR);
 	}
