@@ -51,9 +51,12 @@ public class Labyrinth {
 	}
 
 	public Labyrinth(Graph graph) {
+		Random random = new Random();
 		this.graph = graph;
 		this.manhattan = new int[WIDTH][HEIGHT];
-		this.player = Player.getInstance(0, 0);
+		int xPlayer = random.nextInt(Labyrinth.WIDTH);
+		int yPlayer = random.nextInt(Labyrinth.HEIGHT);
+		this.player = Player.getInstance(xPlayer, yPlayer);
 		buildRandomPath(graph.getvertexByCoord(WIDTH, HEIGHT));
 		try {
 			openDoorRandom();
@@ -65,19 +68,26 @@ public class Labyrinth {
 		//On place enemy le plus loin possible du joueur
 		launchManhattan(graph.getvertexByCoord(0, 0));
 		
-		int max = 0;
-		int x = 0;
-		int y = 0;
-		for(int i = 0; i < WIDTH; i++){
-			for(int j = 0; j < HEIGHT; j++){
-				if(manhattan[i][j] > max){
-					max = manhattan[i][j];
-					x = i;
-					y = j;
-				}
-			}
+//		int max = 0;
+//		int x = 0;
+//		int y = 0;
+//		for(int i = 0; i < WIDTH; i++){
+//			for(int j = 0; j < HEIGHT; j++){
+//				if(manhattan[i][j] > max){
+//					max = manhattan[i][j];
+//					x = i;
+//					y = j;
+//				}
+//			}
+//		}
+	
+		int xEnemy = 0;
+		int yEnemy = 0; 
+		while (yEnemy == xPlayer && yEnemy == yPlayer) {
+			xEnemy = random.nextInt(Labyrinth.WIDTH);
+			yEnemy = random.nextInt(Labyrinth.HEIGHT);
 		}
-		this.enemy = new Enemy(x, y);
+		this.enemy = new Enemy(xEnemy, yEnemy);
 		
 	}
 
