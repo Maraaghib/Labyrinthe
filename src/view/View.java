@@ -124,23 +124,38 @@ public class View {
 		primaryStage.show();
 	}
 	
-	public void updatePlayerPosition(Model model) {
-		int x = model.getPlayer().getX();
-		int y = model.getPlayer().getY();
+	public void updatePlayerPosition(Sprite sprite) {
+		int x = sprite.getX();
+		int y = sprite.getY();
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-		playerView.setX(xt);
-		playerView.setY(yt);
+		if (sprite instanceof Player) {
+			playerView.setX(xt);
+			playerView.setY(yt);
+		}
+		else if (sprite instanceof Enemy) {
+			enemyView.setX(xt);
+			enemyView.setY(yt);
+		}
 	}
 	
-	public void updateEnemyPosition(Model model) {
-		int x = model.getEnemy().getX();
-		int y = model.getEnemy().getY();
-		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-		enemyView.setX(xt);
-		enemyView.setY(yt);
-	}
+//	public void updatePlayerPosition(Model model) {
+//		int x = model.getPlayer().getX();
+//		int y = model.getPlayer().getY();
+//		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+//		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+//		playerView.setX(xt);
+//		playerView.setY(yt);
+//	}
+//	
+//	public void updateEnemyPosition(Model model) {
+//		int x = model.getEnemy().getX();
+//		int y = model.getEnemy().getY();
+//		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+//		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+//		enemyView.setX(xt);
+//		enemyView.setY(yt);
+//	}
 
 	public void addOnAction(EventHandler<KeyEvent> eventHandler) {
 		ViewFrame.scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);

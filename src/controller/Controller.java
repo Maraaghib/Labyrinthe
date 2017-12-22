@@ -91,8 +91,10 @@ public class Controller implements EventHandler<KeyEvent> {
 				gameOver = true;
 			}
 			else {
-				view.updatePlayerPosition(model);
-				view.updateEnemyPosition(model);
+				view.updatePlayerPosition(model.getPlayer());
+				view.updatePlayerPosition(model.getEnemy());
+//				view.updatePlayerPosition(model);
+//				view.updateEnemyPosition(model);
 			}
 		}
 	}
@@ -100,7 +102,8 @@ public class Controller implements EventHandler<KeyEvent> {
 	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
 		view.start(primaryStage, model);
-		view.updatePlayerPosition(model);
+//		view.updatePlayerPosition(model);
+		view.updatePlayerPosition(model.getPlayer());
 		view.addOnAction(this);
 		
 	}
