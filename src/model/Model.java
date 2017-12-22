@@ -3,7 +3,8 @@ package model;
 import java.util.Random;
 /**
  * Classe qui gère tous les éléments du jeux
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class Model {

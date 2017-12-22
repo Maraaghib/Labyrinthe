@@ -4,7 +4,8 @@ import model.Labyrinth.Directions;
 
 /**
  * Classe qui représente le méchant qui essaie d'attraper le joueur
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class Enemy extends Sprite {

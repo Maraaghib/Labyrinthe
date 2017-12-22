@@ -19,7 +19,8 @@ import javafx.scene.text.FontWeight;
 
 /**
  * Classe qui s'occupe de l'affichage à l'écran
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class View {

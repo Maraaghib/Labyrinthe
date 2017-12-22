@@ -4,7 +4,8 @@ import model.Labyrinth.Directions;
 
 /**
  * Interface que les sprites (Player, Enemy, ...) doivent implémenter
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public interface ISprite {

@@ -11,7 +11,8 @@ import model.Edge.Type;
 
 /**
  * Classe qui modélise le labyrinthe
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class Labyrinth {

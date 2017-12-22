@@ -6,7 +6,8 @@ package model;
 
 /**
  * Classe utilisée par la classe Graph pour représenter les arêtes du graphe
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class Edge implements Comparable<Edge> {

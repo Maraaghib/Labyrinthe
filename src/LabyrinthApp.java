@@ -6,7 +6,8 @@ import javafx.stage.Stage;
 
 /**
  * La classe principale du projet
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class LabyrinthApp extends Application {

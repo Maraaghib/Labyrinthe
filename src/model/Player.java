@@ -2,6 +2,8 @@ package model;
 
 /**
  * Classe qui modélise le joueur
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class Player extends Sprite {

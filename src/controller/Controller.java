@@ -11,7 +11,8 @@ import javafx.stage.Stage;
 
 /**
  * Classe qui crée View et Model et qui récupère les entrées du clavier (singleton)
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 

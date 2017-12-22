@@ -8,7 +8,8 @@ import java.util.Random;
 
 /**
  * Classe utilisée pour représenter le labyrinthe modélisé par un graphe
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class Graph {

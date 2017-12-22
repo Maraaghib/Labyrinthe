@@ -10,7 +10,8 @@ import javafx.stage.*;
 
 /**
  * Classe utilisée par View pour l'affichage
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class ViewFrame {

@@ -8,7 +8,8 @@ import model.Labyrinth.Directions;
 
 /**
  * Classe qui modélise un sprite (tel que le joueur, le méchant ou un bonbon
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class Sprite implements ISprite {

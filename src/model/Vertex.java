@@ -4,7 +4,8 @@ import model.Labyrinth.Directions;
 
 /**
  * Classe utilisée par Graph pour modéliser les sommets
- * @author Seerigne Amsatou SEYE & Fabien JACQUES
+ * @author Serigne Amsatou SEYE
+ * @author Fabien JACQUES
  *
  */
 public class Vertex implements Comparable<Vertex> {
