@@ -3,13 +3,10 @@ import controller.Controller;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-/**
- * 
- */
 
 /**
- * Classe qui lance le programme en créant le controller
- * @author hamza
+ * La classe principale du projet
+ * @author Seerigne Amsatou SEYE & Fabien JACQUES
  *
  */
 public class LabyrinthApp extends Application {

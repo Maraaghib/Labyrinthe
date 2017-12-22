@@ -5,8 +5,8 @@ package model;
 
 
 /**
- * Classe utilisée par Graph pour représenter les arrêts du graphe
- * @author hamza
+ * Classe utilisée par la classe Graph pour représenter les arêtes du graphe
+ * @author Seerigne Amsatou SEYE & Fabien JACQUES
  *
  */
 public class Edge implements Comparable<Edge> {
@@ -22,38 +22,75 @@ public class Edge implements Comparable<Edge> {
 	
 	private Type type;
 	
+	/**
+	 * Crée une instance Edge en spécifiant le type
+	 * 
+	 * @param type
+	 * 			Le type de l'arête
+	 */
 	public Edge(Type type) {
-//		super();
 		this.type = type;
 	}
 	
+	/**
+	 * Crée un instance Edge en donnant les deux sommets
+	 * 
+	 * @param source
+	 * 			Le sommet origine
+	 * @param target
+	 * 			Le sommet extrémité
+	 */
 	public Edge(Vertex source, Vertex target) {
-//		super();
 		this.type = Type.CORRIDOR;
 		this.source = source;
 		this.target = target;
 	}
-
+	
+	/**
+	 * Crée une instance Edge en lui passant deux sommets et le type de l'arête
+	 * 
+	 * @param source
+	 * 			Le sommet origine
+	 * @param target
+	 * 			Le soommet extrémité
+	 * @param type
+	 * 			Le type de l'arête
+	 */
 	public Edge(Vertex source, Vertex target, Type type) {
 		this.source = source;
 		this.target = target;
 		this.type = type;
 	}
-
-	// default
+	
+	/**
+	 * Le constructeur par défaut
+	 */
 	public Edge() {
-//		super();
 		this.type = Type.CORRIDOR;
 	}
 	
+	/**
+	 * Définit le sommet origine de l'arête
+	 * @param source
+	 * 			Le nouveau sommet origine
+	 */
 	public void setSource(Vertex source) {
 		this.source = source;
 	}
 
+	/**
+	 * Définit le sommet extrémité
+	 * @param target
+	 * 			Le nouveau sommet extrémité
+	 */
 	public void setTarget(Vertex target) {
 		this.target = target;
 	}
-
+	
+	/**
+	 * Retourne le sommet origine de cette arête
+	 * @return Le sommet origine de cette classe 
+	 */
 	public Vertex getSource() {
 		Vertex vertex = null;
 		try {
@@ -65,6 +102,10 @@ public class Edge implements Comparable<Edge> {
 		return vertex;
 	}
 	
+	/**
+	 * Retourne le sommet extrémité de cette arête
+	 * @return Le sommet extrémité de cette arête
+	 */
 	public Vertex getTarget() {
 		Vertex vertex = null;
 		try {
@@ -76,10 +117,19 @@ public class Edge implements Comparable<Edge> {
 		return vertex;
 	}
 
+	/**
+	 * Retourne le type de cette arête
+	 * @return Le type de cette arête
+	 */
 	public Type getType() {
 		return type;
 	}
 
+	/**
+	 * Définit le type de cette arête
+	 * @param type
+	 * 			Le nouveau type de l'arête
+	 */
 	public void setType(Type type) {
 		this.type = type;
 	}
@@ -101,9 +151,6 @@ public class Edge implements Comparable<Edge> {
 		return "Edge [" + source + "---" + target + "]";
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
 	@Override
 	public int compareTo(Edge o) {
 		// TODO Auto-generated method stub

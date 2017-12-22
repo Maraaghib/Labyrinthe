@@ -8,7 +8,7 @@ import model.Labyrinth.Directions;
 
 /**
  * Classe qui modélise un sprite (tel que le joueur, le méchant ou un bonbon
- * @author hamza
+ * @author Seerigne Amsatou SEYE & Fabien JACQUES
  *
  */
 public class Sprite implements ISprite {
@@ -21,28 +21,49 @@ public class Sprite implements ISprite {
 	private int y;
 	
 	/**
-	 * @param x position du sprite
-	 * @param y position du sprite
+	 * Crée une instance de Sprite avec ses coordoonnées
+	 * @param x
+	 * 			L'abscisse de la position du sprite
+	 * @param y
+	 * 			L'ordoonnées de la position du sprite
 	 */
 	public Sprite(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
+	/**
+	 * Retourne l'abscisse de la position du Sprite
+	 * @return L'abscisse de la position du Sprite
+	 */
 	public int getX() {
 		return this.x;
 	}
 
+	/**
+	 * Positionne le Sprite à l'abscisse spécifié
+	 * @param x
+	 * 			L'abscisse de la position
+	 */
 	public void setX(int x) {
 		if (x <= Labyrinth.WIDTH) {
 			this.x = x;
 		}
 	}
 
+	/**
+	 * Retourne l'ordonnée de la position du Sprite
+	 * @return L'ordonnée de la position du Sprite
+	 */
 	public int getY() {
 		return this.y;
 	}
 
+	/**
+	 * Positionne le Sprite à l'ordonnée spécifié
+	 * @param x
+	 * 			L'ordonnée de la position
+	 */
 	public void setY(int y) {
 		if (y <= Labyrinth.HEIGHT) {
 			this.y = y;

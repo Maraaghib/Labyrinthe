@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 /**
  * Classe qui crée View et Model et qui récupère les entrées du clavier (singleton)
- * @author hamza
+ * @author Seerigne Amsatou SEYE & Fabien JACQUES
  *
  */
 
@@ -30,6 +30,11 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 		this.start();
 	}
 
+	
+	/**
+	 * Retourne une instance unique de la classe Controller
+	 * @return une instance de la classe Controller
+	 */
 	public static Controller getInstance() {
 		// TODO Auto-generated method stub
 		if(instance == null) {
@@ -48,48 +53,20 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 		
 		if(!gameOver && !gameWon){
 			if (event.getCode() == KeyCode.RIGHT) {
-				if(model.getPlayer().move(model.getLabyrinth(), Directions.EAST)){
-//					if(model.getLabyrinth().checkDead()){
-//						view.gameOver(model);
-//						gameOver = true;
-//						return;
-//					}
-//					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
-				}
+				model.getPlayer().move(model.getLabyrinth(), Directions.EAST);
 			}
 			else if (event.getCode() == KeyCode.LEFT) {
-				if(model.getPlayer().move(model.getLabyrinth(), Directions.WEST)){
-//					if(model.getLabyrinth().checkDead()){
-//						view.gameOver(model);
-//						gameOver = true;
-//						return;
-//					}
-//					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
-				}
+				model.getPlayer().move(model.getLabyrinth(), Directions.WEST);
 			}
 			else if (event.getCode() == KeyCode.UP) {
-				if(model.getPlayer().move(model.getLabyrinth(), Directions.NORTH)){
-//					if(model.getLabyrinth().checkDead()){
-//						view.gameOver(model);
-//						gameOver = true;
-//						return;
-//					}
-//				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
-				}
+				model.getPlayer().move(model.getLabyrinth(), Directions.NORTH);
 			}
 			else if (event.getCode() == KeyCode.DOWN) {
-				if(model.getPlayer().move(model.getLabyrinth(), Directions.SOUTH)){
-//					if(model.getLabyrinth().checkDead()){
-//						view.gameOver(model);
-//						gameOver = true;
-//						return;
-//					}
-//				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
-				}
+				model.getPlayer().move(model.getLabyrinth(), Directions.SOUTH);
 			}		
 			
 			if(model.getLabyrinth().checkDead()){
-				view.gameOver(model);
+				view.endOfGame(model, gameWon, gameOver);
 				gameOver = true;
 			}
 			else if (model.getLabyrinth().hasWon()) {
@@ -99,8 +76,6 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 			else {
 				view.updateSpritePosition(model.getPlayer());
 				view.updateSpritePosition(model.getEnemy());
-//				view.updatePlayerPosition(model);
-//				view.updateEnemyPosition(model);
 			}
 		}
 	}
@@ -108,37 +83,19 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
 		view.start(primaryStage, model);
-//		view.updatePlayerPosition(model);
 		view.updateSpritePosition(model.getPlayer());
 		view.addOnAction(this);
-		
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Thread#run()
-	 */
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true) {
-//			System.out.println("Test Thread dans Controller");
-
 			model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 			view.updateSpritePosition(model.getEnemy());
-			if(model.getLabyrinth().checkDead()){
-				// The user interface cannot be directly updated from a non-application thread. Instead, use Platform.runLater()
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				        // if you change the UI, do it here !
-				    	view.gameOver(model);
-				    }
-				});
-				gameOver = true;
-				return;
-			}
-
-			if(model.getLabyrinth().hasWon()){
+			
+			// Vérifier si le joueur est mort
+			if(model.getLabyrinth().hasWon() || model.getLabyrinth().checkDead()){
 				// The user interface cannot be directly updated from a non-application thread. Instead, use Platform.runLater()
 				Platform.runLater(new Runnable() {
 				    @Override
@@ -147,9 +104,11 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 				    	view.endOfGame(model, gameWon, gameOver);
 				    }
 				});
-				gameWon = true;
+				gameWon = model.getLabyrinth().hasWon();
+				gameOver = model.getLabyrinth().checkDead();
 				return;
 			}
+
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

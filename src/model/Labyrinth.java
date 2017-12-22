@@ -9,11 +9,9 @@ import java.util.Vector;
 import model.Edge.Type;
 
 
-
-
 /**
  * Classe qui modélise le labyrinthe
- * @author saseye
+ * @author Seerigne Amsatou SEYE & Fabien JACQUES
  *
  */
 public class Labyrinth {
@@ -28,8 +26,6 @@ public class Labyrinth {
 
 	/**
 	 * Énumération représentant les quatres directions orthogonales
-	 * @author Fabien
-	 *
 	 */
 	public enum Directions{
 		EAST,
@@ -43,6 +39,9 @@ public class Labyrinth {
 	private Enemy enemy;
 	private int[][] manhattan;
 
+	/**
+	 * Retourne une instance de Labyrinth dont le graphe ne contient qu'un seul sommet
+	 */
 	public Labyrinth() {
 		this.graph = new Graph();
 		this.player = Player.getInstance(0, 0);
@@ -50,6 +49,12 @@ public class Labyrinth {
 		System.out.println("Intance de la classe Labyrinth cree !");
 	}
 
+	/**
+	 * Retourne une instance de Labyrinth dont le graphe est spécifié
+	 * Crée le labyrinthe avec tous les éléments qui vont avec
+	 * @param graph
+	 * 			Le graphe que va contenir le labyrinthe
+	 */
 	public Labyrinth(Graph graph) {
 		Random random = new Random();
 		this.graph = graph;
@@ -57,30 +62,22 @@ public class Labyrinth {
 		int xPlayer = random.nextInt(Labyrinth.WIDTH);
 		int yPlayer = random.nextInt(Labyrinth.HEIGHT);
 		this.player = Player.getInstance(xPlayer, yPlayer);
+		
+		// Contruction d'un chemin aléatoire dans le labyrinthe
 		buildRandomPath(graph.getvertexByCoord(WIDTH, HEIGHT));
+		
+		// On place  la porte ouverte aléatoirement dans le labyrinthe
 		try {
 			openDoorRandom();
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		closeDoorRandom();
-		//On place enemy le plus loin possible du joueur
-		launchManhattan(graph.getvertexByCoord(0, 0));
 		
-//		int max = 0;
-//		int x = 0;
-//		int y = 0;
-//		for(int i = 0; i < WIDTH; i++){
-//			for(int j = 0; j < HEIGHT; j++){
-//				if(manhattan[i][j] > max){
-//					max = manhattan[i][j];
-//					x = i;
-//					y = j;
-//				}
-//			}
-//		}
-	
+		// On ferme aléatoirement un couloir
+		closeDoorRandom();
+		
+		//On place enemy aléatoirement dans le labyrinthe
 		int xEnemy = 0;
 		int yEnemy = 0; 
 		while (yEnemy == xPlayer && yEnemy == yPlayer) {
@@ -91,23 +88,45 @@ public class Labyrinth {
 		
 	}
 
+	/**
+	 * Retourne une instance de Graph
+	 * @return Le graphe duu labyrinthe
+	 */
 	public Graph getGraph() {
 		return this.graph;
 	}
 	
+	/**
+	 * Retourne le joueur qui est dans le labyrinthe
+	 * @return Une instance de Player
+	 */
 	public Player getPlayer() {
 		return this.player;
 	}
 	
+	/**
+	 * Retourne un ennemi dans le labyrinthe
+	 * @return Une instance de Enemy
+	 */
 	public Enemy getEnemy(){
 		return this.enemy;
 	}
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public int getManhattan(int x, int y){
 		return manhattan[x][y];
 	}
 	/**
 	 * Fonction récursive qui permet d'implémenter l'algorithme de Manhattan
+	 * @param current
+	 * 			Le sommet de référence
+	 * @param depth
+	 * 			La profondeur
 	 */
 	private void calculateManhattanDistance(Vertex current, int depth) throws CloneNotSupportedException {
 		if(manhattan[current.getX()][current.getY()] == -1){
@@ -142,7 +161,8 @@ public class Labyrinth {
 	/**
 	 * Fonction qui exécute l'algorithme de Manhattan
 	 * Écrit dans manhattan[][] la distance par rapport à target
-	 * @param target l'origine de l'alogirthme de manhattan
+	 * @param target
+	 * 			L'origine de l'alogirthme de Manhattan
 	 */
 	public void launchManhattan(Vertex target){
 		for(int i = 0; i < WIDTH; i++){
@@ -158,7 +178,9 @@ public class Labyrinth {
 	}
 
 	/**
-	 * Génère un labyrinthe parfait
+	 * Génère un labyrinthe parfait à partir du spécifié
+	 * @param vertex
+	 * 			Le sommet de départ
 	 */
 	public void buildRandomPath(Vertex vertex) {
 		// Une liste aleatoire des 4 directions
@@ -211,14 +233,15 @@ public class Labyrinth {
 			}
 		}
 	}
-
-	/* Quelques prÃ©dicats pour dÃ©tecter une porte ouverte, fermÃ©e, un couloir ou un mur... */
-
-	public boolean isWall(Vertex vertex, Directions dir) throws CloneNotSupportedException {
-		Edge edge = graph.getEdge(vertex, dir);
-		return (edge == null);
-	}
 	
+	/**
+	 * Teste si le sommet adjacent à vertex va sortir du labyrinthe en direction dir
+	 * @param vertex
+	 * 			Le sommet aux bords du labyrinthe
+	 * @param dir
+	 * 			La direction du sommet adjacent
+	 * @return true si vertex est aux bords du labyrinthe
+	 */
 	public boolean isBorder(Vertex vertex, Directions dir) {
 		switch (dir) {
 		case NORTH:
@@ -231,6 +254,13 @@ public class Labyrinth {
 			return vertex.getY() == Labyrinth.LEFT_BORDER;
 		}
 		return false;
+	}
+
+	/* Quelques prÃ©dicats pour dÃ©tecter une porte ouverte, fermÃ©e, un couloir ou un mur... */
+
+	public boolean isWall(Vertex vertex, Directions dir) throws CloneNotSupportedException {
+		Edge edge = graph.getEdge(vertex, dir);
+		return (edge == null);
 	}
 
 	public boolean isClosed(Vertex vertex, Directions dir) throws CloneNotSupportedException {
@@ -258,7 +288,6 @@ public class Labyrinth {
 		for (int i = 1; i <= 1000; ++i) {
 			// On choisit un sommet au hasard
 			Vertex vertex = graph.randomVertex();
-//			System.out.println("RandomVertex: "+vertex);
 			Random random = new Random();
 			if (vertex != null) {
 				// On choisit une direction au hasard (on devrait prendre seulement celles qui correspondent à des murs...)
@@ -280,43 +309,6 @@ public class Labyrinth {
 		}
 	}
 	
-	public void openDoorFurthestFromPlayer() throws CloneNotSupportedException {
-		// On prend le sommet le plus loin de player
-		int max = 0;
-		int x = 0;
-		int y = 0;
-		for(int i = 0; i < WIDTH; i++){
-			for(int j = 0; j < HEIGHT; j++){
-				if(manhattan[i][j] > max){
-					max = manhattan[i][j];
-					x = i;
-					y = j;
-				}
-			}
-		}
-		Vertex vertex = graph.getvertexByCoord(x, y);
-		
-		System.out.println("RandomVertex: "+vertex);
-		Random random = new Random();
-		if (vertex != null) {
-			// On choisit une direction au hasard (on devrait prendre seulement celles qui correspondent à des murs...)
-			Labyrinth.Directions dir = Directions.values()[random.nextInt(Directions.values().length)];
-			if (isWall(vertex, dir)) {
-				Vertex vertex2 = graph.getVertexByDir(vertex, dir);
-				if (vertex2 != null) {
-					Edge edge = graph.getEdge(vertex, vertex2); // ça doit normalement retourner null ??
-					if (edge == null) {
-						// on ajoute un saut entre ces sommets
-						Edge newEdge = new Edge(vertex, vertex2);
-						newEdge.setType(Type.OPENED_DOOR);
-						graph.addEdge(newEdge);
-						return;
-					}
-				}
-			}
-		}
-	}
-	
 	public void closeDoor(Edge edge) {
 		edge.setType(Type.CLOSED_DOOR);
 	}
@@ -330,12 +322,16 @@ public class Labyrinth {
 
 	/**
 	 * Fonction qui regarde si le joueure est mort (si le méchant et le joueur sont sur la même case)
-	 * @return vrai si le joueur est mort faux sinon
+	 * @return true si le joueur est mort, false sinon
 	 */
 	public boolean checkDead(){
 		return player.getX() == enemy.getX() && player.getY() == enemy.getY();
 	}
 	
+	/**
+	 * Vérifie si le joueur a réussi à atteindre la porte ouverte, donc a gagné
+	 * @return true si le joueur a gagné, false sinon
+	 */
 	public boolean hasWon() {
 		return player.getX() == graph.getEdgeByType(Type.OPENED_DOOR).getSource().getX() && player.getY() == graph.getEdgeByType(Type.OPENED_DOOR).getSource().getY();
 	}

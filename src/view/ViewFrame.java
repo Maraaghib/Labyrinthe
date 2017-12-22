@@ -10,7 +10,7 @@ import javafx.stage.*;
 
 /**
  * Classe utilisée par View pour l'affichage
- * @author hamza
+ * @author Seerigne Amsatou SEYE & Fabien JACQUES
  *
  */
 public class ViewFrame {
@@ -23,10 +23,23 @@ public class ViewFrame {
 	public static Scene scene;
 	public static final Paint SCENE_COLOR = Color.WHITE;
 
+	/**
+	 * Retourne l'instance vide de ViewFrame
+	 */
 	public ViewFrame() {
 		
 	}
 	
+	/**
+	 * Permet de dessiner le cadre de la fenêtre
+	 * @param stage
+	 * 			L'objet Stage qui va conteinr la scène
+	 * 			
+	 * @param nbrX
+	 * 			Le nombre de cellules à l'horizontale
+	 * @param nbrY
+	 * 			Le nombre de cellules à la verticale
+	 */
 	public static void drawFrame(Stage stage, int nbrX, int nbrY) {
 		
 		scene = new Scene(pane,
@@ -69,6 +82,7 @@ public class ViewFrame {
 		}
 	}
 	
+	
 	public static void drawWall(int xs, int ys, int xt, int yt, Paint color) {
 		
 		int x = 0, y = 0, xspan = 0, yspan = 0;
@@ -93,13 +107,20 @@ public class ViewFrame {
 		
 	}
 	
+	/**
+	 * Permet de dessiner un sprite dans le labyrinthe
+	 * @param x
+	 * 			L'abscisse de l'image dans la fenêtre
+	 * @param y
+	 * 			L'ordonnée de l'image dans le fenêtre
+	 * @param imageView
+	 */
 	public static void drawSprite(int x, int y, ImageView imageView) {
 		
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		imageView.setX(xt);
 		imageView.setY(yt);
-//		imageView.relocate(xt, yt);
 		pane.getChildren().add(imageView);
 	}
 	

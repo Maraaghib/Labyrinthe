@@ -19,7 +19,7 @@ import javafx.scene.text.FontWeight;
 
 /**
  * Classe qui s'occupe de l'affichage à l'écran
- * @author hamza
+ * @author Seerigne Amsatou SEYE & Fabien JACQUES
  *
  */
 public class View {
@@ -36,6 +36,9 @@ public class View {
 	private Image openedDoor;
 	private ImageView openedDoorView;
 
+	/**
+	 * Crée une instance de View en initilisant les obbjets figurant dans le labyrinthe
+	 */
 	private View() {
 		//Création de l'image pour Player
 		FileInputStream playerInput = null;
@@ -88,6 +91,10 @@ public class View {
 		deadView = new ImageView(dead);
 	}
 
+	/**
+	 * Retourne une instance unique de View
+	 * @return Une instance de View
+	 */
 	public static View getInstance() {
 		// TODO Auto-generated method stub
 		if(instance == null) {
@@ -105,6 +112,8 @@ public class View {
 		Graph graph = model.getGraph();
 		primaryStage.setTitle("Labyrinthe");
 		ViewFrame.drawFrame(primaryStage, Labyrinth.WIDTH, Labyrinth.HEIGHT);
+		
+		// Construction des murs verticaux et horizontaux
 		for (int x = 0; x < 16; x++) {
 			for (int y = 0; y < 16; y++) {
 				ViewFrame.drawWall(x, y, x+1, y, ViewFrame.WALL_COLOR); // Murs verticaux
@@ -112,6 +121,7 @@ public class View {
 			}
 		}
 
+		// construction des chemins et affichage des portes
 		for (Edge edge : graph.edgeSet()) {
 			switch (edge.getType()) {
 				case CORRIDOR:	
@@ -129,18 +139,24 @@ public class View {
 			}
 		}
 		
+		// Affihage du joueur et des méchants
 		ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), playerView);
-		
 		ViewFrame.drawSprite(model.getEnemy().getX(), model.getEnemy().getY(), enemyView);
 				
 		primaryStage.show();
 	}
 	
+	/**
+	 * Met à jour les positions des sprites
+	 * @param sprite
+	 * 			Le joueur ou les ennemis
+	 */
 	public void updateSpritePosition(Sprite sprite) {
 		int x = sprite.getX();
 		int y = sprite.getY();
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
 		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
+		
 		if (sprite instanceof Player) {
 			playerView.setX(xt);
 			playerView.setY(yt);
@@ -150,52 +166,30 @@ public class View {
 			enemyView.setY(yt);
 		}
 	}
-	
-//	public void updatePlayerPosition(Model model) {
-//		int x = model.getPlayer().getX();
-//		int y = model.getPlayer().getY();
-//		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-//		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-//		playerView.setX(xt);
-//		playerView.setY(yt);
-//	}
-//	
-//	public void updateEnemyPosition(Model model) {
-//		int x = model.getEnemy().getX();
-//		int y = model.getEnemy().getY();
-//		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-//		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-//		enemyView.setX(xt);
-//		enemyView.setY(yt);
-//	}
 
 	public void addOnAction(EventHandler<KeyEvent> eventHandler) {
 		ViewFrame.scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
 		
 	}
 	
+	/**
+	 * Met à jour l'affichage à la fin du jeu
+	 * @param model
+	 * 			Le model qui contient les données du labyrinthe
+	 * @param gameWon
+	 * 			Variable booléenne pour tester si le joueur a gagné
+	 * @param gameOver
+	 * 			Variable booléenne pour tester si le joueur est perdu
+	 */
 	public void endOfGame(Model model, boolean gameWon, boolean gameOver) {
 		int x = model.getPlayer().getX();
 		int y = model.getPlayer().getY();
-		if (gameWon && !gameOver) {
-			ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), winView);
+		if (gameWon) {
+			ViewFrame.drawSprite(x, y, winView);
 		}
-		else if (!gameWon && gameOver) {
-			ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), deadView);
+		else if (gameOver) {
+			ViewFrame.drawSprite(x, y, deadView);
 		}
-		playerView.setOpacity(0);
-		enemyView.setOpacity(0);
-	}
-	
-	//Affiche l'écran de game over
-	public void gameOver(Model model){
-		int x = model.getPlayer().getX();
-		int y = model.getPlayer().getY();
-		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-		double yt = (int) ((ViewFrame.WALL + y * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
-		//On affiche dead.png
-		ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), deadView);
-		//On rend invisible player et enemy
 		playerView.setOpacity(0);
 		enemyView.setOpacity(0);
 	}

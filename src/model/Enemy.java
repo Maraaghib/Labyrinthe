@@ -3,8 +3,8 @@ package model;
 import model.Labyrinth.Directions;
 
 /**
- * Classe qui reprèsente le méchant qui essaie d'attraper le joueur
- * @author Fabien
+ * Classe qui représente le méchant qui essaie d'attraper le joueur
+ * @author Seerigne Amsatou SEYE & Fabien JACQUES
  *
  */
 public class Enemy extends Sprite {
@@ -14,11 +14,11 @@ public class Enemy extends Sprite {
 	}
 	
 	/**
-	 * Calcul avec l'algorithme de Manhattan la direction que le méchant doit prendre 
+	 * Calcule avec l'algorithme de Manhattan la direction que le méchant doit prendre 
 	 * pour aller vers le joueur le plus rapidement possible
 	 * @param labyrinth Le labyrinth dans lequel se déplace le méchant
-	 * @param x position du joueur
-	 * @param y position du joueur
+	 * @param x l'abscisse de la position du joueur
+	 * @param y l'ordonnée de la position du joueur
 	 */	
 	public void move(Labyrinth labyrinth, int x, int y) {
 
