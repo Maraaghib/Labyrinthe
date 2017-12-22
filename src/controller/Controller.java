@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  */
 
-public class Controller implements EventHandler<KeyEvent> {
+public class Controller extends Thread implements EventHandler<KeyEvent> {
 
 	private static Controller instance = null;
 	private View view;
@@ -26,6 +26,7 @@ public class Controller implements EventHandler<KeyEvent> {
 		// TODO Auto-generated constructor stub
 		model = Model.getInstance();
 		view = View.getInstance();
+		this.start();
 	}
 
 	public static Controller getInstance() {
@@ -52,7 +53,7 @@ public class Controller implements EventHandler<KeyEvent> {
 						gameOver = true;
 						return;
 					}
-					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+//					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 				}
 			}
 			else if (event.getCode() == KeyCode.LEFT) {
@@ -62,7 +63,7 @@ public class Controller implements EventHandler<KeyEvent> {
 						gameOver = true;
 						return;
 					}
-					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+//					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 				}
 			}
 			else if (event.getCode() == KeyCode.UP) {
@@ -72,7 +73,7 @@ public class Controller implements EventHandler<KeyEvent> {
 						gameOver = true;
 						return;
 					}
-				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+//				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 				}
 			}
 			else if (event.getCode() == KeyCode.DOWN) {
@@ -82,7 +83,7 @@ public class Controller implements EventHandler<KeyEvent> {
 						gameOver = true;
 						return;
 					}
-				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+//				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 				}
 			}		
 			
@@ -91,8 +92,8 @@ public class Controller implements EventHandler<KeyEvent> {
 				gameOver = true;
 			}
 			else {
-				view.updatePlayerPosition(model.getPlayer());
-				view.updatePlayerPosition(model.getEnemy());
+				view.updateSpritePosition(model.getPlayer());
+				view.updateSpritePosition(model.getEnemy());
 //				view.updatePlayerPosition(model);
 //				view.updateEnemyPosition(model);
 			}
@@ -103,9 +104,29 @@ public class Controller implements EventHandler<KeyEvent> {
 		// TODO Auto-generated method stub
 		view.start(primaryStage, model);
 //		view.updatePlayerPosition(model);
-		view.updatePlayerPosition(model.getPlayer());
+		view.updateSpritePosition(model.getPlayer());
 		view.addOnAction(this);
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true) {
+//			System.out.println("Test Thread dans Controller");
+
+			model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
+			view.updateSpritePosition(model.getEnemy());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

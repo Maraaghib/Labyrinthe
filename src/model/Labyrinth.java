@@ -208,6 +208,20 @@ public class Labyrinth {
 		Edge edge = graph.getEdge(vertex, dir);
 		return (edge == null);
 	}
+	
+	public boolean isBorder(Vertex vertex, Directions dir) {
+		switch (dir) {
+		case NORTH:
+			return vertex.getY() == Labyrinth.TOP_BORDER;
+		case SOUTH:
+			return vertex.getY() == Labyrinth.DOWN_BORDER;
+		case EAST:
+			return vertex.getY() == Labyrinth.RIGHT_BORDER;
+		case WEST:
+			return vertex.getY() == Labyrinth.LEFT_BORDER;
+		}
+		return false;
+	}
 
 	public boolean isClosed(Vertex vertex, Directions dir) throws CloneNotSupportedException {
 		Edge edge = graph.getEdge(vertex, dir);
@@ -234,12 +248,12 @@ public class Labyrinth {
 		for (int i = 1; i <= 1000; ++i) {
 			// On choisit un sommet au hasard
 			Vertex vertex = graph.randomVertex();
-			System.out.println("RandomVertex: "+vertex);
+//			System.out.println("RandomVertex: "+vertex);
 			Random random = new Random();
 			if (vertex != null) {
 				// On choisit une direction au hasard (on devrait prendre seulement celles qui correspondent à des murs...)
 				Labyrinth.Directions dir = Directions.values()[random.nextInt(Directions.values().length)];
-				if (isWall(vertex, dir)) {
+				if (isWall(vertex, dir) && !isBorder(vertex, dir)) { // Si on trouve un mur autre qu'une bordure, on place la porte.: Pour éviter de placer la porte en dehors du labyrinthe
 					Vertex vertex2 = graph.getVertexByDir(vertex, dir);
 					if (vertex2 != null) {
 						Edge edge = graph.getEdge(vertex, vertex2); // ça doit normalement retourner null ??

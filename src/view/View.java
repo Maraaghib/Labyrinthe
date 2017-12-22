@@ -35,6 +35,45 @@ public class View {
 	private ImageView openedDoorView;
 
 	private View() {
+		//Création de l'image pour Player
+		FileInputStream playerInput = null;
+		try {
+			playerInput = new FileInputStream("img/player.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		player = new Image(playerInput);
+		playerView = new ImageView(player);
+		
+		//Création de l'image pour Enemy
+		FileInputStream enemyInput = null;
+		try {
+			enemyInput = new FileInputStream("img/bad.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		enemy = new Image(enemyInput);
+		enemyView = new ImageView(enemy);
+		
+		//Création de l'image pour openDoor
+		FileInputStream openedDoorInput = null;
+		try {
+			openedDoorInput = new FileInputStream("img/door_open.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		openedDoor = new Image(openedDoorInput);
+		openedDoorView = new ImageView(openedDoor);
+		
+		//Création de l'image pour Dead
+		FileInputStream deadInput = null;
+		try {
+			deadInput = new FileInputStream("img/dead.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		dead = new Image(deadInput);
+		deadView = new ImageView(dead);
 	}
 
 	public static View getInstance() {
@@ -62,22 +101,13 @@ public class View {
 		}
 
 		for (Edge edge : graph.edgeSet()) {
-//			System.out.println("Edge's type: "+edge);
 			switch (edge.getType()) {
 				case CORRIDOR:	
 					ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
 					break;
 				case OPENED_DOOR:
 					ViewFrame.drawWall(edge.getSource().getX(), edge.getSource().getY(), edge.getTarget().getX(), edge.getTarget().getY(), ViewFrame.SCENE_COLOR);
-					//Affichage de player
-					FileInputStream openedDoorInput = null;
-					try {
-						openedDoorInput = new FileInputStream("img/door_open.png");
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					}
-					openedDoor = new Image(openedDoorInput);
-					openedDoorView = new ImageView(openedDoor);
+					
 					
 					ViewFrame.drawSprite(edge.getSource().getX(), edge.getSource().getY(), openedDoorView);
 					break;
@@ -87,44 +117,14 @@ public class View {
 			}
 		}
 		
-		//Affichage de player
-		FileInputStream playerInput = null;
-		try {
-			playerInput = new FileInputStream("img/player.png");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		player = new Image(playerInput);
-		playerView = new ImageView(player);
-		
 		ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), playerView);
-
-		//Affichage de enemy
-		FileInputStream enemyInput = null;
-		try {
-			enemyInput = new FileInputStream("img/bad.png");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		enemy = new Image(enemyInput);
-		enemyView = new ImageView(enemy);
 		
 		ViewFrame.drawSprite(model.getEnemy().getX(), model.getEnemy().getY(), enemyView);
-
-		//Affichage de dead
-		FileInputStream deadInput = null;
-		try {
-			deadInput = new FileInputStream("img/dead.png");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		dead = new Image(deadInput);
-		deadView = new ImageView(dead);
 				
 		primaryStage.show();
 	}
 	
-	public void updatePlayerPosition(Sprite sprite) {
+	public void updateSpritePosition(Sprite sprite) {
 		int x = sprite.getX();
 		int y = sprite.getY();
 		double xt = (int) ((ViewFrame.WALL + x * (ViewFrame.WALL + ViewFrame.CELL)) * ViewFrame.SPAN);
