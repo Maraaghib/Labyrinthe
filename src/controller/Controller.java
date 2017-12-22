@@ -3,7 +3,7 @@ package controller;
 import view.View;
 import model.Labyrinth.Directions;
 import model.Model;
-
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -120,6 +120,18 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 
 			model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 			view.updateSpritePosition(model.getEnemy());
+			if(model.getLabyrinth().checkDead()){
+				// The user interface cannot be directly updated from a non-application thread. Instead, use Platform.runLater()
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				        // if you change the UI, do it here !
+				    	view.gameOver(model);
+				    }
+				});
+				gameOver = true;
+				return;
+			}
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
