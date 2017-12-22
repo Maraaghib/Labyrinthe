@@ -7,8 +7,22 @@ package model;
  */
 public class Player extends Sprite {
 	
-	public Player(int x, int y) {
+	private static Player instance = null;
+	
+	private Player(int x, int y) {
 		super(x, y);
+	}
+	
+	public static Player getInstance(int x, int y) {
+		if(instance == null) {
+			instance = new Player(x, y);
+			System.out.println("Instance de la classe Model créée !");
+		}
+		else {
+			System.out.println("Instance de la classe Model existante !");
+		}
+		
+		return instance;
 	}
 
 }

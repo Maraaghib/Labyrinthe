@@ -9,8 +9,6 @@ import java.util.Random;
 public class Model {
 	
 	private static Model instance = null;
-	private Vertex vertex;
-	private Graph graph;
 	private Labyrinth labyrinth;
 	
 	
@@ -18,9 +16,7 @@ public class Model {
 		Random random = new Random();;
 		int x = random.nextInt(Labyrinth.WIDTH);
 		int y = random.nextInt(Labyrinth.HEIGHT);
-		this.vertex = new Vertex(x, y, 0);
-		this.graph = new Graph(vertex); 
-		this.labyrinth = new Labyrinth(graph);
+		this.labyrinth = new Labyrinth(new Graph(new Vertex(x, y, 0)));
 	}
 	
 	public Labyrinth getLabyrinth() {
