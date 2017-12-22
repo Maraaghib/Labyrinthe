@@ -21,6 +21,7 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 	private View view;
 	private Model model;
 	private boolean gameOver = false;
+	private boolean gameWon = false;
 	
 	private Controller() {
 		// TODO Auto-generated constructor stub
@@ -45,44 +46,44 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 	@Override
 	public void handle(KeyEvent event) {
 		
-		if(!gameOver){
+		if(!gameOver && !gameWon){
 			if (event.getCode() == KeyCode.RIGHT) {
 				if(model.getPlayer().move(model.getLabyrinth(), Directions.EAST)){
-					if(model.getLabyrinth().checkDead()){
-						view.gameOver(model);
-						gameOver = true;
-						return;
-					}
+//					if(model.getLabyrinth().checkDead()){
+//						view.gameOver(model);
+//						gameOver = true;
+//						return;
+//					}
 //					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 				}
 			}
 			else if (event.getCode() == KeyCode.LEFT) {
 				if(model.getPlayer().move(model.getLabyrinth(), Directions.WEST)){
-					if(model.getLabyrinth().checkDead()){
-						view.gameOver(model);
-						gameOver = true;
-						return;
-					}
+//					if(model.getLabyrinth().checkDead()){
+//						view.gameOver(model);
+//						gameOver = true;
+//						return;
+//					}
 //					model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 				}
 			}
 			else if (event.getCode() == KeyCode.UP) {
 				if(model.getPlayer().move(model.getLabyrinth(), Directions.NORTH)){
-					if(model.getLabyrinth().checkDead()){
-						view.gameOver(model);
-						gameOver = true;
-						return;
-					}
+//					if(model.getLabyrinth().checkDead()){
+//						view.gameOver(model);
+//						gameOver = true;
+//						return;
+//					}
 //				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 				}
 			}
 			else if (event.getCode() == KeyCode.DOWN) {
 				if(model.getPlayer().move(model.getLabyrinth(), Directions.SOUTH)){
-					if(model.getLabyrinth().checkDead()){
-						view.gameOver(model);
-						gameOver = true;
-						return;
-					}
+//					if(model.getLabyrinth().checkDead()){
+//						view.gameOver(model);
+//						gameOver = true;
+//						return;
+//					}
 //				model.getEnemy().move(model.getLabyrinth(), model.getEnemy().getX(), model.getEnemy().getY());
 				}
 			}		
@@ -90,6 +91,10 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 			if(model.getLabyrinth().checkDead()){
 				view.gameOver(model);
 				gameOver = true;
+			}
+			else if (model.getLabyrinth().hasWon()) {
+				view.endOfGame(model, gameWon, gameOver);
+				gameWon = true;
 			}
 			else {
 				view.updateSpritePosition(model.getPlayer());
@@ -130,6 +135,19 @@ public class Controller extends Thread implements EventHandler<KeyEvent> {
 				    }
 				});
 				gameOver = true;
+				return;
+			}
+
+			if(model.getLabyrinth().hasWon()){
+				// The user interface cannot be directly updated from a non-application thread. Instead, use Platform.runLater()
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				        // if you change the UI, do it here !
+				    	view.endOfGame(model, gameWon, gameOver);
+				    }
+				});
+				gameWon = true;
 				return;
 			}
 			try {

@@ -13,7 +13,7 @@ import javafx.stage.*;
  * @author hamza
  *
  */
-public abstract class ViewFrame {
+public class ViewFrame {
 	
 	static final int SPAN = 4; // Pixels for a unit
 	static final int WALL = 2; // Thickness of the walls (in units)
@@ -22,6 +22,10 @@ public abstract class ViewFrame {
 	private static BorderPane pane = new BorderPane();
 	public static Scene scene;
 	public static final Paint SCENE_COLOR = Color.WHITE;
+
+	public ViewFrame() {
+		
+	}
 	
 	public static void drawFrame(Stage stage, int nbrX, int nbrY) {
 		

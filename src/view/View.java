@@ -29,6 +29,8 @@ public class View {
 	private ImageView playerView;
 	private Image enemy;
 	private ImageView enemyView;
+	private Image win;
+	private ImageView winView;
 	private Image dead;
 	private ImageView deadView;
 	private Image openedDoor;
@@ -64,6 +66,16 @@ public class View {
 		}
 		openedDoor = new Image(openedDoorInput);
 		openedDoorView = new ImageView(openedDoor);
+		
+		//Création de l'image pour Dead
+		FileInputStream winInput = null;
+		try {
+			winInput = new FileInputStream("img/win.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		win = new Image(winInput);
+		winView = new ImageView(win);
 		
 		//Création de l'image pour Dead
 		FileInputStream deadInput = null;
@@ -160,6 +172,19 @@ public class View {
 	public void addOnAction(EventHandler<KeyEvent> eventHandler) {
 		ViewFrame.scene.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
 		
+	}
+	
+	public void endOfGame(Model model, boolean gameWon, boolean gameOver) {
+		int x = model.getPlayer().getX();
+		int y = model.getPlayer().getY();
+		if (gameWon && !gameOver) {
+			ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), winView);
+		}
+		else if (!gameWon && gameOver) {
+			ViewFrame.drawSprite(model.getPlayer().getX(), model.getPlayer().getY(), deadView);
+		}
+		playerView.setOpacity(0);
+		enemyView.setOpacity(0);
 	}
 	
 	//Affiche l'écran de game over

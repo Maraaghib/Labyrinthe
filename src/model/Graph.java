@@ -107,6 +107,20 @@ public class Graph {
 		return null;
 	}
 	
+	public Edge getEdgeByType(Type type) {
+		for (Edge edge : edges) {
+			if (edge.getType() == type) {
+				try {
+					return (Edge) edge.clone();
+				} catch (CloneNotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+	
 	public Vertex randomVertex() {
 		Random random = new Random();
 		Vertex randVertex = this.vertices.get(random.nextInt(this.vertices.size()));

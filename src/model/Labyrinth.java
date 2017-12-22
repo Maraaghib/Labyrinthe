@@ -335,4 +335,8 @@ public class Labyrinth {
 	public boolean checkDead(){
 		return player.getX() == enemy.getX() && player.getY() == enemy.getY();
 	}
+	
+	public boolean hasWon() {
+		return player.getX() == graph.getEdgeByType(Type.OPENED_DOOR).getSource().getX() && player.getY() == graph.getEdgeByType(Type.OPENED_DOOR).getSource().getY();
+	}
 }
